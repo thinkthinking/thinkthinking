@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "title": "thinkthinking — AI Product Builder · ZenMux.ai Co-Founder",
+    "description": "thinkthinking — AI technical product manager. Product lead & co-founder of ZenMux.ai, the LLM insurance company. Previously AgentOS enterprise agent platform, Baidu PaddlePaddle open source, CATL autonomous-driving perception. Research on model identity, token economics and agent harness."
+  },
+  "header": {
+    "github": "GitHub — thinkthinking",
+    "twitter": "X (Twitter) — @thinkthinking_",
+    "rednote": "rednote",
+    "wechat": "WeChat",
+    "email": "Email",
+    "copied": "Copied!",
+    "copyHint": "Click to copy",
+    "langSwitch": "中文",
+    "langSwitchLabel": "切换到中文"
+  },
+  "hero": {
+    "kicker": "AI Product Builder · ZenMux.ai Co-Founder",
+    "landed": "{name} landed in the masthead",
+    "titleAria": "Send a random specimen flying into the masthead",
+    "markAria": "Send {name} flying into the masthead"
+  },
+  "sections": {
+    "work": { "title": "Work", "note": "from perception algorithms to LLM infrastructure" },
+    "research": { "title": "Research", "note": "real questions, answered with real data" },
+    "products": { "title": "Products", "note": "live and operating" },
+    "openSource": { "title": "Open Source", "note": "code as a calling card" },
+    "writing": { "title": "Writing", "note": "public writing & research notes" }
+  },
+  "work": {
+    "zenmux": {
+      "note": "ZenMux · the LLM insurance company",
+      "meta": "Product Lead · Co-Founder | 2025 —",
+      "body": "Designed the “LLM insurance company” from zero to one: unified OpenAI / Anthropic / Gemini protocols, provider routing, automatic failover, fallback models, observability and billing — call insurance and high availability for agent and AI-coding workloads.",
+      "fact": "4 protocols unified · global mainstream providers · ~2M content views · ~$100k attributable conversion"
+    },
+    "tbox": {
+      "note": "Ant Group · Tbox agent platform",
+      "meta": "Product Lead | 2025 —",
+      "body": "Owned the agent development platform for Tbox (百宝箱): developer-facing agent building and orchestration, the end-to-end flow from create and debug to publish — so developers can compose and iterate agents efficiently on Tbox.",
+      "fact": "agent dev platform · build / orchestrate / debug / publish"
+    },
+    "agentos": {
+      "note": "enterprise agent platform",
+      "meta": "Product Lead · Co-Founder | 2023 — 2025",
+      "body": "Proposed “Copilot design facing Autopilot”; led the end-to-end architecture — agent lifecycle, control/LLM/skill engines, XUI, task flows, knowledge base and data engine; ran an ~30-person R&D team across complex enterprise and government scenarios.",
+      "fact": "9 major releases · 20+ enterprise/gov customers · 100+ industry skills · 20+ industry agents"
+    },
+    "baidu": {
+      "note": "PaddlePaddle · developer platform & open source",
+      "meta": "AI Product Manager | 2022 — 2023",
+      "body": "Owned AI Studio LLM products and the PaddleX pipeline tooling; ran the PaddleDetection / Paddle3D open-source ecosystem — shipped RT-DETR and PP-YOLOE+, grew a 10k-developer community, launched ERNIE Bot applications.",
+      "fact": "PaddleDetection 10k+ stars · GitHub Trending multiple times · 1000+ enterprise POC leads"
+    },
+    "catl": {
+      "note": "CATL · perception algorithms to mass production",
+      "meta": "Autonomous Driving Algorithm Engineer | 2018 — 2022",
+      "body": "Built visual perception for autonomous driving (2D/3D detection, tracking, lane finding), deployed on Xavier via TensorRT with on-vehicle delivery; designed the wireless-BMS frequency-hopping architecture into mass production; drove V2G products and national standards.",
+      "fact": "LKA / AEB on-vehicle · wireless BMS in production · V2G pilot stations"
+    }
+  },
+  "research": {
+    "whoAreYou": {
+      "note": "model identity & cross-vendor identity confusion",
+      "fact": "16 vendors · 27 models · 10 languages · 29,700 answers"
+    },
+    "tokenEconomics": {
+      "note": "the DeepSeek execution line — how a price anchor rewrites the model market",
+      "fact": "built on real ZenMux traffic · anchored to DeepSeek pricing"
+    },
+    "agentHarness": {
+      "note": "Model + Harness = Agent — Copilot design facing Autopilot",
+      "fact": "tracking ~400 agent papers / projects / products"
+    },
+    "superIndividual": {
+      "note": "AI-native organizations & the super individual — how small teams ship",
+      "fact": "Context + Claude Code + MCP + Skills · ~10-person AI-native team practice",
+      "status": "Field notes · ongoing"
+    }
+  },
+  "products": {
+    "zenmux": {
+      "note": "the LLM insurance company — every top model behind one API, insurance included",
+      "fact": "unified protocols · provider routing · automatic failover · observable billing"
+    },
+    "arena": {
+      "note": "open model research — real questions answered with real data",
+      "fact": "who-are-you · token-economics · token-deals"
+    }
+  },
+  "repos": {
+    "zenmuxArena": "all Arena research code & data pipeline",
+    "skills": "Claude Code agent skills collection",
+    "cli": "personal AI workflow CLI",
+    "vibeTemplates": "AI-native workflow templates",
+    "paddleDetection": "former product owner · 10k+ stars",
+    "paddle3d": "BEV / mono / LiDAR 3D perception"
+  },
+  "articles": {
+    "deepseek": {
+      "title": "The DeepSeek Execution Line — what happens when every “Eastern model” is priced like DeepSeek?",
+      "venue": "WeChat blog · in Chinese"
+    },
+    "whoAreYou": {
+      "title": "We spent $1,000 asking 27 models from 16 vendors, 29,700 times: who are you?",
+      "venue": "WeChat blog · in Chinese"
+    },
+    "agentos": {
+      "title": "AgentOS — Copilot design facing Autopilot",
+      "venue": "WeChat blog · in Chinese"
+    }
+  },
+  "footer": {
+    "forAgents": "for AI agents:"
+  }
+}

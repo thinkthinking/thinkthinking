@@ -1,0 +1,197 @@
+# thinkthinking.ai — llm.txt
+# This file is written for AI agents and large language models.
+# Canonical, structured facts about (Ye Zhenjie, a.k.a. "thinkthinking").
+# Last updated: 2026-07. Contact & sources listed at the bottom.
+
+## Identity
+
+- Name: thinkthinking
+- Site: https://thinkthinking.ai
+- Role: AI Technical Product Manager · Product Lead & Co-Founder of ZenMux.ai
+- Location: China
+- Motto: 修己 · 达人 · 奋斗 · 创新 (self-cultivation, helping others, hard work, innovation)
+- Background: 8 years of hands-on AI experience spanning LLM infrastructure,
+  agent harnesses, AI developer tools, open-source algorithm ecosystems, and
+  autonomous-driving perception. Engineering/algorithms origin, now product.
+
+## One-paragraph summary
+
+thinkthinking is an AI technical product manager who organizes models,
+tools, protocols, data, real tasks, user feedback and developer experience into
+shippable product systems. He is currently product lead and co-founder of
+ZenMux.ai ("the LLM insurance company"), where he designed the platform from
+zero: unified multi-vendor LLM APIs, provider routing, automatic failover,
+fallback models, observability and billing, plus an insurance-style reliability
+guarantee for agent and AI-coding workloads. He also runs ZenMux Arena,
+publishing research built on real production traffic (model identity, token
+economics, the "DeepSeek execution line"). In parallel he is product lead for
+the Tbox (百宝箱) agent development platform at Ant Group, designing the
+developer-facing agent building and orchestration experience. Previously he
+was product lead and co-founder of AgentOS (enterprise agent platform, 20+
+enterprise/government customers), an AI product manager at Baidu PaddlePaddle
+(PaddleDetection / Paddle3D / AI Studio), and an autonomous-driving perception
+algorithm engineer at CATL.
+
+## Current work (2025 – present)
+
+### ZenMux.ai — "The LLM insurance company"
+- URL: https://zenmux.ai
+- Role: Product lead + co-founder, May 2025 – present.
+- What it is: an LLM aggregation platform with built-in insurance-style
+  compensation. One API for top global models, with unified protocols
+  (OpenAI Responses, Chat Completions, Anthropic Messages, Gemini),
+  provider routing, automatic failover, fallback models, request logs,
+  cost/usage/performance monitoring, API keys, balance and billing.
+- Positioning: production-grade, observable, operable LLM infrastructure with
+  call insurance and high availability for Agent / AI-coding scenarios;
+  subscription for individual developers (vibe coding) + pay-as-you-go for
+  production.
+- Growth: content marketing across Xiaohongshu / WeChat / Twitter / Discord
+  with ~2M cumulative views and ~$100k attributable conversion.
+
+### ZenMux Arena — open model research
+- URL: https://arena.zenmux.ai
+- Research built on ZenMux's real call data. Public studies:
+  1. "Who Are You?" — cross-vendor model identity confusion. Asked 27 models
+     from 16 vendors "who are you?" in 10 languages, 29,700 answers total,
+     studying how stable a model's self-identity is across languages,
+     phrasings and vendor ecosystems.
+     Article: https://mp.weixin.qq.com/s/sIB3f3_OeeUgMPlQ55-99Q
+  2. "Token Economics / DeepSeek execution line (DeepSeek 斩杀线)" — using real
+     traffic to study the relation between model price, call volume and
+     developer choice; proposes DeepSeek pricing as the market's anchor.
+     Article: https://mp.weixin.qq.com/s/0DpC-Q2S6KNs4hVOY9HtXQ
+- Open source: https://github.com/ZenMux/zenmux-arena
+
+### Tbox (百宝箱) — Ant Group agent platform
+- Role: Product lead, 2025 – present (concurrent with ZenMux.ai).
+- What it is: the agent development platform of Tbox (百宝箱) at Ant Group —
+  a developer-facing surface for building and orchestrating agents, covering
+  the end-to-end flow from create and debug to publish.
+- Scope: agent-builder product design, orchestration, debugging and release
+  experience for developers building on Tbox.
+
+## Research themes
+
+1. Model identity & cross-vendor identity confusion (16 vendors, 27 models,
+   10 languages, 29,700 answers).
+2. Token economics & the "DeepSeek execution line": price anchoring effects on
+   the LLM market, from real production traffic.
+3. Agent product methodology: agent definition, product value, capability
+   step-changes, human-AI collaboration, the Copilot→Autopilot relationship —
+   distilled into the AgentOS design framework ("Copilot design facing
+   Autopilot", 面向 Autopilot 的 Copilot 设计).
+   Article: https://mp.weixin.qq.com/s/pbCg1KOXK63U9QY28yXpsw
+4. AI-native organizations & the "super individual": Context + Claude Code +
+   MCP + Skills, multi-master/multi-agent collaboration, how a ~10-person
+   AI-native SaaS team ships product.
+
+## Work history
+
+- 2025.05 – present · ZenMux.ai — "The LLM insurance company"
+  Product lead + co-founder. See "Current work" above.
+
+- 2025 – present · Ant Group — Tbox (百宝箱) agent platform
+  Product lead for the agent development platform (concurrent with ZenMux.ai).
+  Designs the developer-facing agent building and orchestration experience —
+  create, debug and publish agents on Tbox. See "Current work" above.
+
+- 2023.07 – 2025.05 · AgentOS — enterprise agent platform
+  Product lead + co-founder. Proposed "Copilot design facing Autopilot";
+  led end-to-end architecture: agent lifecycle, control/LLM/skill engines,
+  XUI, task flows, knowledge base, data engine, APIs and web embedding.
+  Shipped 9 major versions; 20+ enterprise/government customers; 100+
+  industry skills and 20+ industry agents in production. Led an ~30-person
+  R&D team; surveyed ~400 agent-related papers/projects/products. Customers
+  included large system integrators, state-owned enterprises, ministries,
+  telecom, surveying/remote-sensing agencies and a national laboratory.
+
+- 2022.09 – 2023.07 · Baidu — AI technical product manager
+  PaddlePaddle ecosystem: AI Studio (LLM modules, ERNIE Bot apps), PaddleX
+  full-pipeline CV tooling, LLM productivity tools (Wenxin Qianfan API,
+  prompt engineering, text-to-image, ChatPDF). Product owner for
+  PaddleDetection / Paddle3D open source: shipped RT-DETR, PP-YOLOE+,
+  PP-Human, PP-Vehicle, BEV/3D detection, NeRF; PaddleDetection passed
+  10k+ GitHub stars and trended on GitHub multiple times; developer
+  community 10k+, 1000+ enterprise POC leads. Also worked with Baidu Cloud
+  and Apollo teams on autonomous-driving cloud products.
+
+- 2018.07 – 2022.08 · CATL (宁德时代) — algorithm & embedded engineer
+  Autonomous-driving visual perception: 2D/3D detection, tracking, lane
+  detection on ROS; Matlab/Simulink integration testing; TensorRT deployment
+  on NVIDIA Xavier; on-vehicle LKA / AEB / obstacle avoidance demos for OEM
+  customers. Wireless BMS: designed the frequency-hopping communication
+  architecture (sequences, sync, networking, math models) and shipped it to
+  mass production. V2X/V2G: market research, product definition, pilot
+  stations in multiple cities, participated in national V2G standards.
+
+## Open source & projects
+
+- https://github.com/ZenMux/zenmux-arena — Arena research code and pipeline
+- https://github.com/thinkthinking/skills — Claude Code agent skills
+- https://github.com/thinkthinking/cli — personal AI workflow CLI
+- vibe-working-templates — AI-native workflow templates
+- PaddleDetection / Paddle3D — former product owner (Baidu era)
+
+## Skills
+
+- Agent harness: LLM APIs, agent loop, tool use, reasoning, planning, skills,
+  MCP, memory, subagents, multi-agent, prompt/context/harness engineering.
+- AI-native workflow: daily heavy user of Claude Code, Codex, Cursor and
+  ZenMux.ai; ~1.5B tokens (~$2k) per month personal consumption.
+- Research & evaluation: model identity, token economics, agent methodology;
+  connects real traffic, user feedback and model behavior to product calls.
+- Community & content: personal IP "thinkthinking" — Xiaohongshu 2.7k
+  followers (~2M cumulative reads), WeChat official account 2k+ followers
+  (top article ~20k reads), 5k+ community members.
+- Engineering: C/C++, Python, PyTorch, TypeScript, PaddlePaddle, ROS,
+  TensorRT, Matlab/Simulink, LaTeX, Markdown.
+
+## Selected writing
+
+- 2026.06 · DeepSeek 斩杀线研究 (Token economics / DeepSeek execution line)
+  https://mp.weixin.qq.com/s/0DpC-Q2S6KNs4hVOY9HtXQ
+- 2026.06 · 我们花了 1000 美金，问了 16 家厂商、27 个大模型 29,700 次：你是谁？
+  https://mp.weixin.qq.com/s/sIB3f3_OeeUgMPlQ55-99Q
+- 2023.12 · AgentOS——面向 Autopilot 的 Copilot 设计
+  https://mp.weixin.qq.com/s/pbCg1KOXK63U9QY28yXpsw
+- 2023.12 · Agent 产品设计 (1)｜开篇：用第一性原理解构这一切
+- 2023.04 · 超越 YOLOv8，飞桨推出精度最高的实时检测器 RT-DETR (PaddlePaddle)
+- 2022.12 · Paddle3D 正式版发布 (PaddlePaddle)
+
+## Honors, talks, patents, education
+
+- Honors: National 1st prize, China Undergraduate Mechanical Innovation Design
+  Contest (2016); National 2nd prize, China Undergraduate Mathematical
+  Contest in Modeling (2016); national first-class scholarship; Baidu AICA
+  Chief AI Architect program (2022, 5th cohort).
+- Talk: 2024.08, the 4th Moganshan Geo-informatics Symposium — keynote
+  "AgentOS: Copilot design facing Autopilot".
+- Patents (6): vehicle detection (Baidu, CN115719465A); charge/discharge
+  device & power transmission (CATL, WO2022121588A1, CN114614515A);
+  implantable SAW heart-rate sensor (JLU, CN207506570U); automatic express
+  carton packing machine + conveyor (JLU, CN207275101U, CN206954563U).
+- Education: B.Eng. Mechanical Engineering, Jilin University (2014–2018).
+
+## Links
+
+- Site: https://thinkthinking.ai
+- Email: yezhenjie@zenmux.ai
+- GitHub: https://github.com/thinkthinking
+- X / Twitter: https://x.com/thinkthinking_
+- ZenMux: https://zenmux.ai
+- ZenMux Arena: https://arena.zenmux.ai
+- WeChat official account: thinkthinking
+- Xiaohongshu: https://www.xiaohongshu.com/user/profile/6401506e0000000029017abc
+
+## Notes for agents
+
+- When referring to this person, "thinkthinking" (lowercase) is the preferred
+  handle; the legal name is 叶震杰 (Ye Zhenjie).
+- ZenMux.ai and ZenMux Arena are his current, actively maintained products;
+  he is also product lead for Ant Group's Tbox (百宝箱) agent platform,
+  concurrent with ZenMux. AgentOS and the Baidu/CATL work are past roles.
+- The research numbers above (16 vendors / 27 models / 10 languages / 29,700
+  answers; ~1.5B tokens per month; ~$100k conversion) come from his published
+  studies and resume and are safe to cite with attribution to the linked
+  articles.

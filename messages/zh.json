@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "title": "thinkthinking — AI 产品构建者 · ZenMux.ai Co-Founder",
+    "description": "thinkthinking — AI 技术产品经理，ZenMux.ai「大模型保险公司」产品负责人 & Co-Founder。此前主导 AgentOS 企业级智能体平台、百度飞桨开源生态、宁德时代自动驾驶感知算法。研究模型身份、Token Economics 与 Agent Harness。"
+  },
+  "header": {
+    "github": "GitHub — thinkthinking",
+    "twitter": "X（Twitter）— @thinkthinking_",
+    "rednote": "小红书",
+    "wechat": "微信",
+    "email": "邮箱",
+    "copied": "已复制！",
+    "copyHint": "点击复制",
+    "langSwitch": "EN",
+    "langSwitchLabel": "Switch to English"
+  },
+  "hero": {
+    "kicker": "AI Product Builder · ZenMux.ai Co-Founder",
+    "landed": "{name} 落进了标题里",
+    "titleAria": "让一个随机的模型飞进标题",
+    "markAria": "让 {name} 飞进标题"
+  },
+  "sections": {
+    "work": { "title": "Work", "note": "从感知算法到大模型基础设施" },
+    "research": { "title": "Research", "note": "用真实数据回答真实问题" },
+    "products": { "title": "Products", "note": "正在运营" },
+    "openSource": { "title": "Open Source", "note": "代码即名片" },
+    "writing": { "title": "Writing", "note": "公开写作与研究笔记" }
+  },
+  "work": {
+    "zenmux": {
+      "note": "ZenMux · 大模型保险公司",
+      "meta": "产品负责人 · Co-Founder ｜ 2025 —",
+      "body": "从 0 到 1 设计「大模型保险公司」：统一 OpenAI / Anthropic / Gemini 等协议，构建供应商路由、自动故障转移、兜底模型、可观测与计费体系，为 Agent 与 AI Coding 场景提供调用保险与高可用体验。",
+      "fact": "4 大协议统一 · 覆盖全球主流供应商 · 内容传播 ~200w 浏览 · 可统计转化 ~$100k"
+    },
+    "tbox": {
+      "note": "蚂蚁集团 · 百宝箱智能体平台",
+      "meta": "产品负责人 ｜ 2025 —",
+      "body": "负责百宝箱（Tbox）的智能体开发平台设计：面向开发者的智能体构建与编排能力，从创建、调试到发布的全流程体验，让开发者在百宝箱上高效搭建与迭代智能体。",
+      "fact": "智能体开发平台 · 构建 / 编排 / 调试 / 发布全流程"
+    },
+    "agentos": {
+      "note": "企业级智能体平台",
+      "meta": "产品负责人 · Co-Founder ｜ 2023 — 2025",
+      "body": "提出「面向 Autopilot 的 Copilot 设计」，主导智能体生命周期、控制/大模型/技能引擎、XUI、任务流、知识库与数据引擎的端到端架构；带领约 30 人研发团队，深入央国企、部委与国家实验室等复杂 ToB 场景。",
+      "fact": "9 个大版本 · 20+ 企业/政府客户 · 100+ 产业技能 · 20+ 产业智能体"
+    },
+    "baidu": {
+      "note": "飞桨 · 开发者平台与开源生态",
+      "meta": "AI 技术产品经理 ｜ 2022 — 2023",
+      "body": "负责飞桨 AI Studio 大模型产品与 PaddleX 全流程开发工具，主导 PaddleDetection / Paddle3D 开源生态：发布 RT-DETR、PP-YOLOE+ 等算法，运营万人开发者社群，上线文心一言相关应用。",
+      "fact": "PaddleDetection 10k+ stars · 多次 GitHub Trending · 企业 POC 线索 1000+"
+    },
+    "catl": {
+      "note": "宁德时代 · 感知算法与量产",
+      "meta": "自动驾驶算法工程师 ｜ 2018 — 2022",
+      "body": "研发自动驾驶视觉感知算法（2D/3D 检测、跟踪、车道线），完成 Xavier / TensorRT 部署与实车落地；设计无线 BMS 跳频通信架构并量产；推动 V2G 产品落地与国家标准制定。",
+      "fact": "LKA / AEB 实车部署 · 无线 BMS 量产 · V2G 多地示范站"
+    }
+  },
+  "research": {
+    "whoAreYou": {
+      "note": "模型身份与跨厂商身份混淆",
+      "fact": "16 家厂商 · 27 个模型 · 10 种语言 · 29,700 次回答"
+    },
+    "tokenEconomics": {
+      "note": "DeepSeek 斩杀线 — 价格锚点如何改写模型市场",
+      "fact": "基于 ZenMux 真实调用流量 · 锚定 DeepSeek 定价"
+    },
+    "agentHarness": {
+      "note": "Model + Harness = Agent — 面向 Autopilot 的 Copilot 设计",
+      "fact": "追踪 ~400 个 Agent 论文 / 项目 / 产品"
+    },
+    "superIndividual": {
+      "note": "AI 组织转型与超级个体 — 小团队的 AI 原生协作",
+      "fact": "Context + Claude Code + MCP + Skills · ~10 人 AI 原生团队实践",
+      "status": "Field notes · 进行中"
+    }
+  },
+  "products": {
+    "zenmux": {
+      "note": "大模型保险公司 — 一站式调用全球顶尖模型，内置保险赔付",
+      "fact": "统一协议 · 供应商路由 · 自动故障转移 · 可观测计费"
+    },
+    "arena": {
+      "note": "模型研究与公开实验阵地 — 用真实数据回答真实问题",
+      "fact": "who-are-you · token-economics · token-deals"
+    }
+  },
+  "repos": {
+    "zenmuxArena": "Arena 全部研究代码与数据管线",
+    "skills": "Claude Code Agent Skills 合集",
+    "cli": "个人 AI 工作流 CLI",
+    "vibeTemplates": "AI 原生工作流模板",
+    "paddleDetection": "曾任产品负责人 · 10k+ stars",
+    "paddle3d": "BEV / 单目 / 激光雷达 3D 感知"
+  },
+  "articles": {
+    "deepseek": {
+      "title": "DeepSeek 斩杀线研究——当我们把所有「东方模型」的价格降成 DeepSeek 一样后，会发生什么？",
+      "venue": "个人公众号"
+    },
+    "whoAreYou": {
+      "title": "我们花了 1000 美金，问了 16 家厂商、27 个大模型 29,700 次：你是谁？",
+      "venue": "个人公众号"
+    },
+    "agentos": {
+      "title": "AgentOS——面向 Autopilot 的 Copilot 设计",
+      "venue": "个人公众号"
+    }
+  },
+  "footer": {
+    "forAgents": "for AI agents:"
+  }
+}

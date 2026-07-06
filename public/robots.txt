@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# For AI agents and LLMs — structured facts about this site's owner:
+# https://thinkthinking.ai/llm.txt
+
+Sitemap: https://thinkthinking.ai/sitemap.xml
