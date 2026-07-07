@@ -10,6 +10,7 @@ import {
   Noto_Serif_SC,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -111,6 +112,7 @@ export default async function LocaleLayout({
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
