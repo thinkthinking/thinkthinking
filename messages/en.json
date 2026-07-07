@@ -23,7 +23,6 @@
   "sections": {
     "work": { "title": "Work", "note": "from perception algorithms to LLM infrastructure" },
     "research": { "title": "Research", "note": "real questions, answered with real data" },
-    "products": { "title": "Products", "note": "live and operating" },
     "openSource": { "title": "Open Source", "note": "code as a calling card" },
     "writing": { "title": "Writing", "note": "public writing & research notes" }
   },
@@ -72,20 +71,9 @@
       "note": "Model + Harness = Agent — Copilot design facing Autopilot",
       "fact": "tracking ~400 agent papers / projects / products"
     },
-    "superIndividual": {
-      "note": "AI-native organizations & the super individual — how small teams ship",
-      "fact": "Context + Claude Code + MCP + Skills · ~10-person AI-native team practice",
-      "status": "Field notes · ongoing"
-    }
-  },
-  "products": {
-    "zenmux": {
-      "note": "the LLM insurance company — every top model behind one API, insurance included",
-      "fact": "unified protocols · provider routing · automatic failover · observable billing"
-    },
-    "arena": {
-      "note": "open model research — real questions answered with real data",
-      "fact": "who-are-you · token-economics · token-deals"
+    "tokenDeals": {
+      "note": "real billing data from ZenMux — tracking model price deals & developer savings",
+      "fact": "353.11B tokens · $132,087 saved · 69% average discount"
     }
   },
   "repos": {
@@ -106,7 +94,7 @@
       "venue": "WeChat blog · in Chinese"
     },
     "agentos": {
-      "title": "AgentOS — Copilot design facing Autopilot",
+      "title": "Agent Product Design (1) | Prologue: Break It to Build It — Deconstructing Everything with First Principles",
       "venue": "WeChat blog · in Chinese"
     }
   },

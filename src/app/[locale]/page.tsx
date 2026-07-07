@@ -7,8 +7,8 @@
 //
 // Structure: masthead (avatar + contact popovers + language switch) →
 // specimen-plate hero (client; easter egg + toolbox strip) → the index
-// (Work / Research / Products) in giant rows → Open Source grid → Writing
-// list → minimal colophon. Fully static per locale.
+// (Research / Writing / Work) in giant rows → Open Source grid →
+// minimal colophon. Fully static per locale.
 
 import Image from "next/image";
 import QRCode from "qrcode";
@@ -27,63 +27,10 @@ interface RowDef {
   hasBody?: boolean;
   hasMeta?: boolean;
   /** Company wordmark under public/company-logo (Work rows). */
-  logo?: { src: string; alt: string };
+  logo?: { src: string; alt: string; href?: string };
   href: string | null;
   accent: string;
 }
-
-const WORK: RowDef[] = [
-  {
-    id: "zenmux",
-    display: "ZenMux",
-    tKey: "zenmux",
-    hasBody: true,
-    hasMeta: true,
-    logo: { src: "/company-logo/zenmux.png", alt: "ZenMux" },
-    href: "https://zenmux.ai",
-    accent: "var(--fg-green)",
-  },
-  {
-    id: "tbox",
-    display: "Tbox",
-    tKey: "tbox",
-    hasBody: true,
-    hasMeta: true,
-    logo: { src: "/company-logo/antgroup.png", alt: "Ant Group" },
-    href: null,
-    accent: "var(--fg-blue)",
-  },
-  {
-    id: "agentos",
-    display: "AgentOS",
-    tKey: "agentos",
-    hasBody: true,
-    hasMeta: true,
-    logo: { src: "/company-logo/agentos.png", alt: "AgentOS" },
-    href: "https://mp.weixin.qq.com/s/pbCg1KOXK63U9QY28yXpsw",
-    accent: "var(--fg-ochre)",
-  },
-  {
-    id: "baidu",
-    display: "Baidu",
-    tKey: "baidu",
-    hasBody: true,
-    hasMeta: true,
-    logo: { src: "/company-logo/baidu.png", alt: "Baidu" },
-    href: "https://github.com/PaddlePaddle/PaddleDetection",
-    accent: "var(--fg-blue)",
-  },
-  {
-    id: "catl",
-    display: "CATL",
-    tKey: "catl",
-    hasBody: true,
-    hasMeta: true,
-    logo: { src: "/company-logo/catl.svg", alt: "CATL" },
-    href: null,
-    accent: "var(--fg-red)",
-  },
-];
 
 const RESEARCH: RowDef[] = [
   {
@@ -108,27 +55,63 @@ const RESEARCH: RowDef[] = [
     accent: "var(--fg-red)",
   },
   {
-    id: "super-individual",
-    display: "Super Individual",
-    tKey: "superIndividual",
-    href: null,
+    id: "token-deals",
+    display: "Token Deals",
+    tKey: "tokenDeals",
+    href: "https://arena.zenmux.ai/token-deals",
     accent: "var(--fg-blue)",
   },
 ];
 
-const PRODUCTS: RowDef[] = [
+const WORK: RowDef[] = [
   {
-    id: "zenmux-ai",
-    display: "ZenMux.ai",
+    id: "zenmux",
+    display: "ZenMux",
     tKey: "zenmux",
+    hasBody: true,
+    hasMeta: true,
+    logo: { src: "/company-logo/zenmux.png", alt: "ZenMux", href: "https://zenmux.ai" },
     href: "https://zenmux.ai",
     accent: "var(--fg-green)",
   },
   {
-    id: "arena",
-    display: "ZenMux Arena",
-    tKey: "arena",
-    href: "https://arena.zenmux.ai",
+    id: "tbox",
+    display: "Tbox",
+    tKey: "tbox",
+    hasBody: true,
+    hasMeta: true,
+    logo: { src: "/company-logo/antgroup.png", alt: "Ant Group", href: "https://www.antgroup.com" },
+    href: "https://b.tbox.cn/inc-about",
+    accent: "var(--fg-blue)",
+  },
+  {
+    id: "agentos",
+    display: "AgentOS",
+    tKey: "agentos",
+    hasBody: true,
+    hasMeta: true,
+    logo: { src: "/company-logo/agentos.png", alt: "AgentOS" },
+    href: "https://mp.weixin.qq.com/s/pbCg1KOXK63U9QY28yXpsw",
+    accent: "var(--fg-ochre)",
+  },
+  {
+    id: "baidu",
+    display: "PaddlePaddle",
+    tKey: "baidu",
+    hasBody: true,
+    hasMeta: true,
+    logo: { src: "/company-logo/baidu.png", alt: "Baidu", href: "https://www.baidu.com" },
+    href: "https://www.paddlepaddle.org.cn",
+    accent: "var(--fg-blue)",
+  },
+  {
+    id: "catl",
+    display: "CATL",
+    tKey: "catl",
+    hasBody: true,
+    hasMeta: true,
+    logo: { src: "/company-logo/catl.svg", alt: "CATL", href: "https://www.catl.com" },
+    href: null,
     accent: "var(--fg-red)",
   },
 ];
@@ -189,13 +172,12 @@ export default async function Home({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [qrSvg, tSections, tWork, tResearch, tProducts, tRepos, tArticles, tFooter] =
+  const [qrSvg, tSections, tWork, tResearch, tRepos, tArticles, tFooter] =
     await Promise.all([
       xiaohongshuQrSvg(),
       getTranslations("sections"),
       getTranslations("work"),
       getTranslations("research"),
-      getTranslations("products"),
       getTranslations("repos"),
       getTranslations("articles"),
       getTranslations("footer"),
@@ -223,36 +205,15 @@ export default async function Home({
         <SpecimenPlate />
       </section>
 
-      {/* ── I. Work ──────────────────────────────────────────────────────── */}
+      {/* ── I. Research ──────────────────────────────────────────────────── */}
       <section className="relative z-10 mx-auto mt-6 w-full max-w-6xl px-6 sm:px-10 md:mt-0">
-        <IndexHeading no="I" title={tSections("work.title")} note={tSections("work.note")} />
-        <ol>
-          {WORK.map((row, i) => (
-            <GiantRow
-              key={row.id}
-              row={row}
-              index={i + 1}
-              note={tWork(`${row.tKey}.note`)}
-              meta={row.hasMeta ? tWork(`${row.tKey}.meta`) : undefined}
-              body={row.hasBody ? tWork(`${row.tKey}.body`) : undefined}
-              fact={tWork(`${row.tKey}.fact`)}
-            />
-          ))}
-        </ol>
-
-        {/* ── II. Research ─────────────────────────────────────────────── */}
-        <IndexHeading
-          no="II"
-          title={tSections("research.title")}
-          note={tSections("research.note")}
-          className="mt-24"
-        />
+        <IndexHeading no="I" title={tSections("research.title")} note={tSections("research.note")} />
         <ol>
           {RESEARCH.map((row, i) => (
             <GiantRow
               key={row.id}
               row={row}
-              index={WORK.length + i + 1}
+              index={i + 1}
               note={tResearch(`${row.tKey}.note`)}
               fact={tResearch(`${row.tKey}.fact`)}
               status={row.href ? undefined : tResearch(`${row.tKey}.status`)}
@@ -260,21 +221,56 @@ export default async function Home({
           ))}
         </ol>
 
-        {/* ── III. Products ────────────────────────────────────────────── */}
+        {/* ── II. Writing ──────────────────────────────────────────────── */}
         <IndexHeading
-          no="III"
-          title={tSections("products.title")}
-          note={tSections("products.note")}
+          no="II"
+          title={tSections("writing.title")}
+          note={tSections("writing.note")}
           className="mt-24"
         />
         <ol>
-          {PRODUCTS.map((row, i) => (
+          {ARTICLES.map((a) => (
+            <li key={a.tKey} className="border-b border-[var(--fg-ink)]/15">
+              <a
+                href={a.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-baseline gap-4 py-5 outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--fg-paper)] sm:gap-8"
+              >
+                <span className="w-16 shrink-0 pt-0.5 font-mono text-[11px] tracking-tight text-[var(--fg-ink-soft)]">
+                  {a.date}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[15px] leading-snug text-[var(--fg-ink)]">
+                    {tArticles(`${a.tKey}.title`)}
+                  </span>
+                  <span className="fg-note mt-0.5 block text-[12px] text-[var(--fg-ink-soft)]">
+                    {tArticles(`${a.tKey}.venue`)}
+                  </span>
+                </span>
+                <ArrowUpRight className="size-3.5 shrink-0 self-center text-[var(--fg-ink-soft)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--fg-ink)]" />
+              </a>
+            </li>
+          ))}
+        </ol>
+
+        {/* ── III. Work ────────────────────────────────────────────────── */}
+        <IndexHeading
+          no="III"
+          title={tSections("work.title")}
+          note={tSections("work.note")}
+          className="mt-24"
+        />
+        <ol>
+          {WORK.map((row, i) => (
             <GiantRow
               key={row.id}
               row={row}
-              index={WORK.length + RESEARCH.length + i + 1}
-              note={tProducts(`${row.tKey}.note`)}
-              fact={tProducts(`${row.tKey}.fact`)}
+              index={RESEARCH.length + i + 1}
+              note={tWork(`${row.tKey}.note`)}
+              meta={row.hasMeta ? tWork(`${row.tKey}.meta`) : undefined}
+              body={row.hasBody ? tWork(`${row.tKey}.body`) : undefined}
+              fact={tWork(`${row.tKey}.fact`)}
             />
           ))}
         </ol>
@@ -308,39 +304,6 @@ export default async function Home({
             </li>
           ))}
         </ul>
-
-        {/* ── V. Writing ───────────────────────────────────────────────── */}
-        <IndexHeading
-          no="V"
-          title={tSections("writing.title")}
-          note={tSections("writing.note")}
-          className="mt-24"
-        />
-        <ol>
-          {ARTICLES.map((a) => (
-            <li key={a.tKey} className="border-b border-[var(--fg-ink)]/15">
-              <a
-                href={a.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-baseline gap-4 py-5 outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--fg-paper)] sm:gap-8"
-              >
-                <span className="w-16 shrink-0 pt-0.5 font-mono text-[11px] tracking-tight text-[var(--fg-ink-soft)]">
-                  {a.date}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[15px] leading-snug text-[var(--fg-ink)]">
-                    {tArticles(`${a.tKey}.title`)}
-                  </span>
-                  <span className="fg-note mt-0.5 block text-[12px] text-[var(--fg-ink-soft)]">
-                    {tArticles(`${a.tKey}.venue`)}
-                  </span>
-                </span>
-                <ArrowUpRight className="size-3.5 shrink-0 self-center text-[var(--fg-ink-soft)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--fg-ink)]" />
-              </a>
-            </li>
-          ))}
-        </ol>
       </section>
 
       {/* ── Colophon — one quiet line. ───────────────────────────────────── */}
@@ -411,6 +374,16 @@ function GiantRow({
   fact: string | null;
   status?: string;
 }) {
+  const logoImg = row.logo && (
+    <Image
+      src={row.logo.src}
+      alt={row.logo.alt}
+      width={200}
+      height={48}
+      className="h-5 w-auto opacity-80 transition-opacity group-hover:opacity-100"
+    />
+  );
+
   const inner = (
     <div className="flex flex-col py-7 sm:py-9">
       <div className="flex flex-col gap-x-8 gap-y-2 md:flex-row md:items-baseline md:justify-between">
@@ -418,15 +391,20 @@ function GiantRow({
           {row.display}
         </span>
         <span className="flex shrink-0 flex-col gap-1 md:items-end md:text-right">
-          {row.logo && (
-            <Image
-              src={row.logo.src}
-              alt={row.logo.alt}
-              width={200}
-              height={48}
-              className="mb-1 h-5 w-auto self-start opacity-80 md:self-end"
-            />
-          )}
+          {row.logo &&
+            (row.logo.href ? (
+              <a
+                href={row.logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={row.logo.alt}
+                className="relative z-30 mb-1 inline-block self-start rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--fg-paper)] md:self-end"
+              >
+                {logoImg}
+              </a>
+            ) : (
+              <span className="mb-1 block self-start md:self-end">{logoImg}</span>
+            ))}
           <span className="fg-note text-[15px] leading-snug text-[var(--fg-ink-soft)]">
             {note}
           </span>
@@ -457,25 +435,22 @@ function GiantRow({
 
   return (
     <li
-      className="fg-index-row group border-b border-[var(--fg-ink)]/15"
+      className="fg-index-row group relative border-b border-[var(--fg-ink)]/15"
       style={{ "--fg-row-accent": row.accent } as React.CSSProperties}
     >
-      {row.href ? (
+      {row.href && (
         <a
           href={row.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-baseline gap-4 outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--fg-paper)] sm:gap-8"
-        >
-          <RowNumber n={index} />
-          <div className="min-w-0 flex-1">{inner}</div>
-        </a>
-      ) : (
-        <div className="flex items-baseline gap-4 sm:gap-8">
-          <RowNumber n={index} />
-          <div className="min-w-0 flex-1">{inner}</div>
-        </div>
+          aria-label={row.display}
+          className="absolute inset-0 z-20 outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--fg-paper)]"
+        />
       )}
+      <div className="flex items-baseline gap-4 sm:gap-8">
+        <RowNumber n={index} />
+        <div className="min-w-0 flex-1">{inner}</div>
+      </div>
     </li>
   );
 }

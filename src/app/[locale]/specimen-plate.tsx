@@ -99,22 +99,22 @@ interface RingMark extends Specimen {
   driftDelay: number;
 }
 
-function ringOf(list: Specimen[], rx: number, ry: number, phase: number, sizes: number[]): RingMark[] {
+function ringOf(list: Specimen[], rx: number, ry: number, phase: number, size: number): RingMark[] {
   return list.map((s, i) => {
     const angle = (i / list.length) * Math.PI * 2 - Math.PI / 2 + phase;
     return {
       ...s,
       x: Number((50 + rx * Math.cos(angle)).toFixed(2)),
       y: Number((50 + ry * Math.sin(angle)).toFixed(2)),
-      size: sizes[i % sizes.length],
+      size,
       driftDur: 7 + (i % 5) * 0.6,
       driftDelay: (i % 7) * 0.45,
     };
   });
 }
 
-const OUTER_RING = ringOf(MODELS, 47, 45, 0, [48, 36, 42]);
-const INNER_RING = ringOf(TOOLS, 34, 31, Math.PI / TOOLS.length, [26, 22, 24]);
+const OUTER_RING = ringOf(MODELS, 47, 45, 0, 40);
+const INNER_RING = ringOf(TOOLS, 34, 31, Math.PI / TOOLS.length, 24);
 
 /* Compact strips for < md, where the absolute rings would collide with text. */
 const MOBILE_MODELS = MODELS.slice(0, 10);

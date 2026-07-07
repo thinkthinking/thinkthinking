@@ -23,7 +23,6 @@
   "sections": {
     "work": { "title": "Work", "note": "从感知算法到大模型基础设施" },
     "research": { "title": "Research", "note": "用真实数据回答真实问题" },
-    "products": { "title": "Products", "note": "正在运营" },
     "openSource": { "title": "Open Source", "note": "代码即名片" },
     "writing": { "title": "Writing", "note": "公开写作与研究笔记" }
   },
@@ -72,20 +71,9 @@
       "note": "Model + Harness = Agent — 面向 Autopilot 的 Copilot 设计",
       "fact": "追踪 ~400 个 Agent 论文 / 项目 / 产品"
     },
-    "superIndividual": {
-      "note": "AI 组织转型与超级个体 — 小团队的 AI 原生协作",
-      "fact": "Context + Claude Code + MCP + Skills · ~10 人 AI 原生团队实践",
-      "status": "Field notes · 进行中"
-    }
-  },
-  "products": {
-    "zenmux": {
-      "note": "大模型保险公司 — 一站式调用全球顶尖模型，内置保险赔付",
-      "fact": "统一协议 · 供应商路由 · 自动故障转移 · 可观测计费"
-    },
-    "arena": {
-      "note": "模型研究与公开实验阵地 — 用真实数据回答真实问题",
-      "fact": "who-are-you · token-economics · token-deals"
+    "tokenDeals": {
+      "note": "ZenMux 全量真实计费数据 — 追踪模型价格折扣与开发者节省",
+      "fact": "353.11B tokens · 累计节省 $132,087 · 平均折扣 69%"
     }
   },
   "repos": {
@@ -106,7 +94,7 @@
       "venue": "个人公众号"
     },
     "agentos": {
-      "title": "AgentOS——面向 Autopilot 的 Copilot 设计",
+      "title": "Agent产品设计(1)｜开篇：不破不立！用第一性原理解构这一切吧！",
       "venue": "个人公众号"
     }
   },
