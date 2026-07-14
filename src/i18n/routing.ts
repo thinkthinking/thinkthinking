@@ -1,8 +1,9 @@
 import { defineRouting } from "next-intl/routing";
 
-// zh is the default and lives at "/", English at "/en".
+// English is the default at "/"; Chinese is explicitly available at "/zh".
 export const routing = defineRouting({
-  locales: ["zh", "en"],
-  defaultLocale: "zh",
+  locales: ["en", "zh"],
+  defaultLocale: "en",
   localePrefix: "as-needed",
+  localeDetection: false,
 });

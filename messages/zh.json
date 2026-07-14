@@ -77,6 +77,7 @@
     }
   },
   "repos": {
+    "website": "thinkthinking.ai 本站源代码",
     "zenmuxArena": "Arena 全部研究代码与数据管线",
     "skills": "Claude Code Agent Skills 合集",
     "cli": "个人 AI 工作流 CLI",

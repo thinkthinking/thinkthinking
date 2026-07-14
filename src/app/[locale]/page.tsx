@@ -97,6 +97,12 @@ const WORK: EntryDef[] = [
 
 const REPOS = [
   {
+    name: "thinkthinking / thinkthinking",
+    tKey: "website",
+    href: "https://github.com/thinkthinking",
+    color: "var(--rare-coral)",
+  },
+  {
     name: "ZenMux / zenmux-arena",
     tKey: "zenmuxArena",
     href: "https://github.com/ZenMux/zenmux-arena",
@@ -192,10 +198,9 @@ export default async function Home({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [qrSvg, tHero, tSections, tWork, tResearch, tRepos, tArticles, tFooter] =
+  const [qrSvg, tSections, tWork, tResearch, tRepos, tArticles, tFooter] =
     await Promise.all([
       xiaohongshuQrSvg(),
-      getTranslations("hero"),
       getTranslations("sections"),
       getTranslations("work"),
       getTranslations("research"),
@@ -222,7 +227,6 @@ export default async function Home({
           <div className="rare-hero-wordmark">
             <h1 id="hero-title">THINKTHINKING</h1>
           </div>
-          <p className="rare-hero-role">{tHero("kicker")}</p>
 
           <div className="rare-research-heading">
             <SectionHeading
@@ -279,12 +283,20 @@ export default async function Home({
                 }
               >
                 <a href={article.href} target="_blank" rel="noopener noreferrer">
-                  <span className="rare-writing-date">{article.date}</span>
-                  <h3>{tArticles(`${article.tKey}.title`)}</h3>
-                  <span className="rare-writing-venue">
-                    {tArticles(`${article.tKey}.venue`)}
+                  <span className="rare-writing-visual" aria-hidden>
+                    <span className="rare-writing-visual-index">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="rare-writing-visual-signal" />
                   </span>
-                  <ArrowUpRight />
+                  <span className="rare-writing-content">
+                    <h3>{tArticles(`${article.tKey}.title`)}</h3>
+                    <span className="rare-writing-meta">
+                      <span>{tArticles(`${article.tKey}.venue`)}</span>
+                      <time dateTime={article.date.replace(".", "-")}>{article.date}</time>
+                      <ArrowUpRight />
+                    </span>
+                  </span>
                 </a>
               </li>
             ))}

@@ -60,13 +60,13 @@ export async function generateMetadata({
       "Token Economics",
     ],
     alternates: {
-      canonical: locale === "zh" ? "/" : "/en",
-      languages: { "zh-CN": "/", en: "/en", "x-default": "/" },
+      canonical: locale === "en" ? "/" : "/zh",
+      languages: { "zh-CN": "/zh", en: "/", "x-default": "/" },
     },
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: locale === "zh" ? "https://thinkthinking.ai" : "https://thinkthinking.ai/en",
+      url: locale === "en" ? "https://thinkthinking.ai" : "https://thinkthinking.ai/zh",
       siteName: "thinkthinking",
       type: "website",
     },
@@ -93,6 +93,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale === "zh" ? "zh-CN" : "en"}
+      data-scroll-behavior="smooth"
       className={`${jost.variable} ${oswald.variable} ${notoSansSC.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
