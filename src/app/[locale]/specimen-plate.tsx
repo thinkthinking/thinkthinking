@@ -1,15 +1,15 @@
 "use client";
 
-// The hero "specimen plate": TWO concentric rings of marks around the giant
-// outlined masthead — the outer ring is the frontier models & agent tools,
-// the inner ring is the languages & lab tooling from eight years of shipping.
+// The hero "specimen plate": a strict modular grid of marks around the giant
+// outlined masthead — every logo occupies one square cell, while the title
+// occupies a precisely aligned merged cell in the middle of the matrix.
 // Every mark is a live specimen with the plumage easter egg ported from
 // ZenMux Arena: click one (or the title, which picks at random) and it FLIES
 // off its perch, arcs across the hero, and crashes into a random letter of
 // THINK THINKING — feathers burst, the letter is replaced by the mark, and
 // the brand's colours ripple outward through the neighbouring letters.
 //
-// Client component; ring geometry stays deterministic module-level data so
+// Client component; grid geometry stays deterministic module-level data so
 // SSR and hydration agree. Math.random() only runs inside click handlers.
 
 import { useEffect, useRef, useState } from "react";
@@ -87,38 +87,25 @@ function dyeAt(s: Specimen, dist: number): string {
   return s.stops.length > 1 ? s.stops[dist % s.stops.length] : s.ink;
 }
 
-/* ── Ring geometry (deterministic, shared with SSR) ────────────────────────
-   Outer ring: the 18 model marks. Inner ring: the 11 tool marks, smaller
-   and slightly offset in phase so the two rings interleave visually. */
+/* ── Grid geometry (deterministic, shared with SSR) ────────────────────────
+   Desktop is a 14 × 7 square matrix. The central 8 × 4 area is reserved for
+   the title panel, so the 29 specimens sit on the surrounding cells. On
+   mobile, normal grid flow packs all 29 specimens into the first five rows
+   of a six-column matrix. */
 
-interface RingMark extends Specimen {
-  x: number;
-  y: number;
-  size: number;
-  driftDur: number;
-  driftDelay: number;
+interface GridSlot {
+  col: number;
+  row: number;
 }
 
-function ringOf(list: Specimen[], rx: number, ry: number, phase: number, size: number): RingMark[] {
-  return list.map((s, i) => {
-    const angle = (i / list.length) * Math.PI * 2 - Math.PI / 2 + phase;
-    return {
-      ...s,
-      x: Number((50 + rx * Math.cos(angle)).toFixed(2)),
-      y: Number((50 + ry * Math.sin(angle)).toFixed(2)),
-      size,
-      driftDur: 7 + (i % 5) * 0.6,
-      driftDelay: (i % 7) * 0.45,
-    };
-  });
-}
-
-const OUTER_RING = ringOf(MODELS, 47, 45, 0, 40);
-const INNER_RING = ringOf(TOOLS, 34, 31, Math.PI / TOOLS.length, 24);
-
-/* Compact strips for < md, where the absolute rings would collide with text. */
-const MOBILE_MODELS = MODELS.slice(0, 10);
-const MOBILE_TOOLS = TOOLS.slice(0, 8);
+const DESKTOP_SLOTS: GridSlot[] = [
+  ...Array.from({ length: 14 }, (_, i) => ({ col: i + 1, row: 1 })),
+  { col: 1, row: 2 }, { col: 2, row: 2 }, { col: 13, row: 2 }, { col: 14, row: 2 },
+  { col: 1, row: 3 }, { col: 14, row: 3 },
+  { col: 1, row: 4 }, { col: 14, row: 4 },
+  { col: 1, row: 5 }, { col: 2, row: 5 }, { col: 13, row: 5 }, { col: 14, row: 5 },
+  { col: 3, row: 7 }, { col: 7, row: 7 }, { col: 12, row: 7 },
+];
 
 /* ── The masthead as letters ──────────────────────────────────────────────── */
 
@@ -183,7 +170,7 @@ function pickSpecimen(excludeFile: string | undefined): Specimen {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-/* ── One ring mark on its perch: rise-in, drift, click-to-fly ──────────────
+/* ── One grid mark in its square: rise-in, click-to-fly ────────────────────
    MODULE-LEVEL on purpose: defining this inside SpecimenPlate would mint a
    new component type every render, so each egg click would unmount/remount
    every mark and replay all the fg-rise entrances (the whole hero "flashes").
@@ -195,55 +182,47 @@ interface MarkButtonProps {
   "data-away": true | undefined;
 }
 
-function RingMarkEl({
+function GridMarkEl({
   s,
-  delayIndex,
+  index,
+  slot,
   markProps,
   setRef,
 }: {
-  s: RingMark;
-  delayIndex: number;
+  s: Specimen;
+  index: number;
+  slot: GridSlot;
   markProps: (file: string) => MarkButtonProps;
   setRef: (file: string, el: HTMLElement | null) => void;
 }) {
   return (
     <div
-      className="fg-rise absolute -translate-x-1/2 -translate-y-1/2"
+      className="fg-specimen-cell fg-rise"
       style={
         {
-          left: `${s.x}%`,
-          top: `${s.y}%`,
-          "--fg-delay": `${0.15 + delayIndex * 0.04}s`,
+          "--fg-grid-col": slot.col,
+          "--fg-grid-row": slot.row,
+          "--fg-delay": `${0.08 + index * 0.025}s`,
         } as React.CSSProperties
       }
     >
-      <div
-        className="fg-drift"
-        style={
-          {
-            "--fg-drift-dur": `${s.driftDur}s`,
-            "--fg-drift-delay": `${s.driftDelay}s`,
-          } as React.CSSProperties
-        }
+      <button
+        type="button"
+        title={s.name}
+        {...markProps(s.file)}
+        ref={(el) => setRef(s.file, el)}
+        className="fg-egg-mark flex size-full cursor-pointer items-center justify-center outline-none focus-visible:z-20 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--fg-ink)]"
       >
-        <button
-          type="button"
-          title={s.name}
-          {...markProps(s.file)}
-          ref={(el) => setRef(s.file, el)}
-          className="fg-egg-mark pointer-events-auto cursor-pointer rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--fg-paper)]"
-        >
-          <Image
-            src={logoSrc(s)}
-            alt=""
-            width={s.size}
-            height={s.size}
-            unoptimized
-            className="drop-shadow-[0_2px_6px_rgba(33,29,22,0.12)]"
-            style={{ width: s.size, height: s.size }}
-          />
-        </button>
-      </div>
+        <Image
+          src={logoSrc(s)}
+          alt=""
+          width={40}
+          height={40}
+          unoptimized
+          loading={index === 0 ? "eager" : undefined}
+          className={`object-contain drop-shadow-[0_2px_6px_rgba(33,29,22,0.12)] ${s.dir === "model-logo" ? "fg-grid-logo-model" : "fg-grid-logo-tool"}`}
+        />
+      </button>
     </div>
   );
 }
@@ -256,8 +235,7 @@ export function SpecimenPlate() {
 
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const letterRefs = useRef<(HTMLElement | null)[]>([]);
-  const ringRefs = useRef<Map<string, HTMLElement>>(new Map());
-  const stripRefs = useRef<Map<string, HTMLElement>>(new Map());
+  const gridRefs = useRef<Map<string, HTMLElement>>(new Map());
   const landTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(
@@ -273,16 +251,14 @@ export function SpecimenPlate() {
     : null;
   const landed = egg?.phase === "landed";
 
-  function setRingRef(file: string, el: HTMLElement | null) {
-    if (el) ringRefs.current.set(file, el);
-    else ringRefs.current.delete(file);
+  function setGridRef(file: string, el: HTMLElement | null) {
+    if (el) gridRefs.current.set(file, el);
+    else gridRefs.current.delete(file);
   }
 
   function sourceMark(file: string): HTMLElement | null {
-    for (const el of [ringRefs.current.get(file), stripRefs.current.get(file)]) {
-      if (el && el.getBoundingClientRect().width > 0) return el;
-    }
-    return null;
+    const el = gridRefs.current.get(file);
+    return el && el.getBoundingClientRect().width > 0 ? el : null;
   }
 
   function wear(file: string) {
@@ -355,72 +331,22 @@ export function SpecimenPlate() {
 
   return (
     <>
-      {/* Mobile specimen strips (the rings need room): models, then tools. */}
-      <div className="md:hidden">
-        {[
-          { list: MOBILE_MODELS, size: 28, delay: "0.1s" },
-          { list: MOBILE_TOOLS, size: 22, delay: "0.2s" },
-        ].map(({ list, size, delay }, gi) => (
-          <ul
-            key={gi}
-            className="fg-rise mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-4 first:mt-8"
-            style={{ "--fg-delay": delay } as React.CSSProperties}
-          >
-            {list.map((s) => (
-              <li key={s.file}>
-                <button
-                  type="button"
-                  title={s.name}
-                  {...markProps(s.file)}
-                  ref={(el) => {
-                    if (el) stripRefs.current.set(s.file, el);
-                    else stripRefs.current.delete(s.file);
-                  }}
-                  className="fg-egg-mark cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--fg-paper)]"
-                >
-                  <Image
-                    src={logoSrc(s)}
-                    alt=""
-                    width={size}
-                    height={size}
-                    unoptimized
-                    style={{ width: size, height: size }}
-                  />
-                </button>
-              </li>
-            ))}
-          </ul>
+      <div className="fg-specimen-grid relative text-center">
+        {SPECIMENS.map((s, i) => (
+          <GridMarkEl
+            key={s.file}
+            s={s}
+            index={i}
+            slot={DESKTOP_SLOTS[i]}
+            markProps={markProps}
+            setRef={setGridRef}
+          />
         ))}
-      </div>
 
-      <div className="relative flex min-h-[46vh] flex-col items-center justify-center py-14 text-center md:min-h-[86vh] md:py-0">
-        {/* The rings (md+): two interleaved ellipses of marks, each drifting.
-            The container swallows no clicks; each mark re-enables its own. */}
-        <div className="pointer-events-none absolute inset-0 hidden md:block">
-          {OUTER_RING.map((s, i) => (
-            <RingMarkEl
-              key={s.file}
-              s={s}
-              delayIndex={i}
-              markProps={markProps}
-              setRef={setRingRef}
-            />
-          ))}
-          {INNER_RING.map((s, i) => (
-            <RingMarkEl
-              key={s.file}
-              s={s}
-              delayIndex={OUTER_RING.length + i}
-              markProps={markProps}
-              setRef={setRingRef}
-            />
-          ))}
-        </div>
-
-        {/* Title block — the masthead speaks in the index's outlined voice. */}
-        <div className="relative flex max-w-3xl flex-col items-center gap-8">
+        {/* Title block — a merged grid cell with three internal registers. */}
+        <div className="fg-title-panel relative z-10 grid min-w-0 items-center bg-[var(--fg-paper)]">
           <p
-            className="fg-rise text-[11px] font-medium uppercase tracking-[0.42em] text-[var(--fg-ink-soft)]"
+            className="fg-rise fg-title-kicker flex items-center justify-center px-4 text-[9px] font-medium uppercase leading-relaxed tracking-[0.28em] text-[var(--fg-ink-soft)] sm:text-[11px] sm:tracking-[0.42em]"
             style={{ "--fg-delay": "0.2s" } as React.CSSProperties}
           >
             {t("kicker")}
@@ -438,7 +364,7 @@ export function SpecimenPlate() {
                 borrowPlumage();
               }
             }}
-            className="fg-rise fg-egg-perch fg-title-outline relative cursor-pointer select-none font-(family-name:--font-archivo-black) text-[clamp(3rem,8.6vw,6.6rem)] uppercase leading-[0.96] tracking-tight outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-8 focus-visible:ring-offset-[var(--fg-paper)]"
+            className="fg-rise fg-egg-perch fg-title-outline relative flex cursor-pointer select-none flex-col items-center justify-center border-y border-[var(--fg-line-strong)] font-(family-name:--font-archivo-black) text-[clamp(2.15rem,10.5vw,3rem)] uppercase leading-[0.92] tracking-tight outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--fg-ink)] sm:text-[clamp(3rem,7vw,6.2rem)]"
             style={{ "--fg-delay": "0.35s" } as React.CSSProperties}
           >
             {/* Impact FX: shockwave + feather burst, anchored to the crash
@@ -528,7 +454,7 @@ export function SpecimenPlate() {
           {/* The slogan — a hairline rule on each side, like a letterpress
               motto under the masthead. */}
           <p
-            className="fg-rise flex items-center gap-4 text-[var(--fg-ink-soft)]"
+            className="fg-rise fg-title-motto flex items-center justify-center gap-4 px-4 text-[var(--fg-ink-soft)]"
             style={{ "--fg-delay": "0.55s" } as React.CSSProperties}
           >
             <span aria-hidden className="h-px w-10 bg-[var(--fg-ink)]/30 sm:w-16" />
@@ -542,7 +468,7 @@ export function SpecimenPlate() {
           {landed && specimen && (
             <p
               key={egg!.count}
-              className="fg-egg-tag absolute -bottom-14 left-1/2 flex items-center gap-2 whitespace-nowrap rounded-full border border-[var(--fg-ink)]/10 bg-[var(--fg-paper)]/85 px-4 py-1.5 backdrop-blur-sm"
+              className="fg-egg-tag absolute bottom-3 left-1/2 z-20 flex items-center gap-2 whitespace-nowrap rounded-full border border-[var(--fg-ink)]/10 bg-[var(--fg-paper)]/90 px-4 py-1.5 backdrop-blur-sm"
             >
               <Image
                 src={logoSrc(specimen)}

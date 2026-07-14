@@ -201,14 +201,16 @@ export default async function Home({
       <SiteHeader qrSvg={qrSvg} />
 
       {/* ── Hero: the specimen plate (client — the masthead is the egg) ──── */}
-      <section className="relative z-10 mx-auto w-full max-w-6xl px-6">
-        <SpecimenPlate />
+      <section className="relative z-10 w-full">
+        <div className="fg-editorial-frame">
+          <SpecimenPlate />
+        </div>
       </section>
 
       {/* ── I. Research ──────────────────────────────────────────────────── */}
-      <section className="relative z-10 mx-auto mt-6 w-full max-w-6xl px-6 sm:px-10 md:mt-0">
+      <section className="relative z-10 w-full">
         <IndexHeading no="I" title={tSections("research.title")} note={tSections("research.note")} />
-        <ol>
+        <ol className="fg-editorial-frame border-b-0">
           {RESEARCH.map((row, i) => (
             <GiantRow
               key={row.id}
@@ -228,27 +230,29 @@ export default async function Home({
           note={tSections("writing.note")}
           className="mt-24"
         />
-        <ol>
+        <ol className="fg-editorial-frame border-b-0">
           {ARTICLES.map((a) => (
-            <li key={a.tKey} className="border-b border-[var(--fg-ink)]/15">
+            <li key={a.tKey} className="fg-compact-row group">
               <a
                 href={a.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-baseline gap-4 py-5 outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--fg-paper)] sm:gap-8"
+                className="fg-compact-row-link outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--fg-ink)]"
               >
-                <span className="w-16 shrink-0 pt-0.5 font-mono text-[11px] tracking-tight text-[var(--fg-ink-soft)]">
+                <span className="fg-compact-index font-mono text-[10px] tracking-[0.08em] text-[var(--fg-ink-soft)]">
                   {a.date}
                 </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[15px] leading-snug text-[var(--fg-ink)]">
+                <span className="fg-compact-main min-w-0">
+                  <span className="block text-[clamp(1rem,1.8vw,1.25rem)] font-medium leading-snug text-[var(--fg-ink)] transition-transform duration-300 group-hover:translate-x-1">
                     {tArticles(`${a.tKey}.title`)}
                   </span>
-                  <span className="fg-note mt-0.5 block text-[12px] text-[var(--fg-ink-soft)]">
+                </span>
+                <span className="fg-compact-aside">
+                  <span className="fg-note block text-[13px] leading-snug text-[var(--fg-ink-soft)]">
                     {tArticles(`${a.tKey}.venue`)}
                   </span>
+                  <ArrowUpRight className="size-3.5 shrink-0 text-[var(--fg-ink-soft)] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--fg-ink)]" />
                 </span>
-                <ArrowUpRight className="size-3.5 shrink-0 self-center text-[var(--fg-ink-soft)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--fg-ink)]" />
               </a>
             </li>
           ))}
@@ -261,7 +265,7 @@ export default async function Home({
           note={tSections("work.note")}
           className="mt-24"
         />
-        <ol>
+        <ol className="fg-editorial-frame border-b-0">
           {WORK.map((row, i) => (
             <GiantRow
               key={row.id}
@@ -282,24 +286,29 @@ export default async function Home({
           note={tSections("openSource.note")}
           className="mt-24"
         />
-        <ul className="grid grid-cols-1 gap-x-10 sm:grid-cols-2">
-          {REPOS.map((repo) => (
-            <li key={repo.name} className="border-b border-[var(--fg-ink)]/15">
+        <ul className="fg-editorial-frame border-b-0">
+          {REPOS.map((repo, i) => (
+            <li key={repo.name} className="fg-compact-row group">
               <a
                 href={repo.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-baseline justify-between gap-4 py-5 outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--fg-paper)]"
+                className="fg-compact-row-link outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--fg-ink)]"
               >
-                <span className="min-w-0">
-                  <span className="block truncate font-mono text-[13px] tracking-tight text-[var(--fg-ink)] underline-offset-4 group-hover:underline">
+                <span className="fg-compact-index font-mono text-[10px] tracking-[0.08em] text-[var(--fg-ink-soft)]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="fg-compact-main min-w-0">
+                  <span className="block font-mono text-[13px] tracking-tight text-[var(--fg-ink)] underline-offset-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:underline">
                     {repo.name}
                   </span>
-                  <span className="fg-note mt-1 block text-[13px] text-[var(--fg-ink-soft)]">
+                </span>
+                <span className="fg-compact-aside">
+                  <span className="fg-note min-w-0 text-[13px] leading-snug text-[var(--fg-ink-soft)]">
                     {tRepos(repo.tKey)}
                   </span>
+                  <ArrowUpRight className="size-3.5 shrink-0 text-[var(--fg-ink-soft)] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--fg-ink)]" />
                 </span>
-                <ArrowUpRight className="size-3.5 shrink-0 text-[var(--fg-ink-soft)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--fg-ink)]" />
               </a>
             </li>
           ))}
@@ -307,12 +316,15 @@ export default async function Home({
       </section>
 
       {/* ── Colophon — one quiet line. ───────────────────────────────────── */}
-      <footer className="relative z-10 mx-auto mt-24 w-full max-w-6xl px-6 pb-14 sm:px-10">
-        <div className="flex flex-wrap items-baseline justify-between gap-3 border-t border-[var(--fg-ink)]/20 pt-8">
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--fg-ink-soft)]">
-            © {new Date().getFullYear()} thinkthinking
+      <footer className="relative z-10 mt-24 w-full pb-10">
+        <div className="fg-editorial-frame fg-footer-grid grid gap-4 border-t px-4 py-6 sm:gap-0 sm:px-0 sm:py-0">
+          <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--fg-ink-soft)] sm:flex sm:items-center sm:justify-center">
+            © {new Date().getFullYear()}
           </p>
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--fg-ink-soft)]">
+          <p className="hidden border-l border-[var(--fg-line-strong)] text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--fg-ink-soft)] sm:flex sm:items-center sm:px-5">
+            thinkthinking
+          </p>
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--fg-ink-soft)] sm:py-6 sm:pr-5">
             {tFooter("forAgents")}{" "}
             <a
               href="/llm.txt"
@@ -341,16 +353,12 @@ function IndexHeading({
   className?: string;
 }) {
   return (
-    <div
-      className={`flex items-baseline justify-between gap-4 border-b border-[var(--fg-ink)]/25 pb-3 ${className ?? ""}`}
-    >
-      <div className="flex items-baseline gap-3">
-        <span className="fg-note text-sm text-[var(--fg-ink-soft)]">{no}.</span>
-        <h2 className="text-sm font-medium uppercase tracking-[0.3em] text-[var(--fg-ink)]">
-          {title}
-        </h2>
-      </div>
-      <p className="fg-note hidden text-sm text-[var(--fg-ink-soft)] sm:block">{note}</p>
+    <div className={`fg-section-heading ${className ?? ""}`}>
+      <span className="fg-section-no fg-note text-sm text-[var(--fg-ink-soft)]">{no}.</span>
+      <h2 className="fg-section-title text-sm font-medium uppercase tracking-[0.3em] text-[var(--fg-ink)]">
+        {title}
+      </h2>
+      <p className="fg-section-note fg-note text-sm text-[var(--fg-ink-soft)]">{note}</p>
     </div>
   );
 }
@@ -385,12 +393,19 @@ function GiantRow({
   );
 
   const inner = (
-    <div className="flex flex-col py-7 sm:py-9">
-      <div className="flex flex-col gap-x-8 gap-y-2 md:flex-row md:items-baseline md:justify-between">
-        <span className="fg-outline font-(family-name:--font-archivo-black) text-[clamp(2.1rem,6.8vw,5rem)] uppercase leading-[0.95] tracking-tight">
+    <div className="contents">
+      <div className="fg-row-main">
+        <span className="fg-outline block font-(family-name:--font-archivo-black) text-[clamp(1.65rem,8vw,2.1rem)] uppercase leading-[0.92] tracking-[-0.045em] sm:text-[clamp(2.1rem,6vw,4.75rem)]">
           {row.display}
         </span>
-        <span className="flex shrink-0 flex-col gap-1 md:items-end md:text-right">
+        {body && (
+          <p className="mt-6 max-w-[44rem] text-[14px] leading-[1.75] text-[var(--fg-ink-soft)]">
+            {body}
+          </p>
+        )}
+      </div>
+      <div className="fg-row-aside">
+        <span className="flex flex-col gap-2">
           {row.logo &&
             (row.logo.href ? (
               <a
@@ -398,14 +413,14 @@ function GiantRow({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={row.logo.alt}
-                className="relative z-30 mb-1 inline-block self-start rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--fg-paper)] md:self-end"
+                className="relative z-30 mb-2 inline-block self-start rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--fg-paper)]"
               >
                 {logoImg}
               </a>
             ) : (
-              <span className="mb-1 block self-start md:self-end">{logoImg}</span>
+              <span className="mb-2 block self-start">{logoImg}</span>
             ))}
-          <span className="fg-note text-[15px] leading-snug text-[var(--fg-ink-soft)]">
+          <span className="fg-note text-[15px] leading-[1.4] text-[var(--fg-ink)]">
             {note}
           </span>
           {meta && (
@@ -425,17 +440,12 @@ function GiantRow({
           )}
         </span>
       </div>
-      {body && (
-        <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-[var(--fg-ink-soft)]">
-          {body}
-        </p>
-      )}
     </div>
   );
 
   return (
     <li
-      className="fg-index-row group relative border-b border-[var(--fg-ink)]/15"
+      className="fg-index-row group relative grid"
       style={{ "--fg-row-accent": row.accent } as React.CSSProperties}
     >
       {row.href && (
@@ -447,17 +457,15 @@ function GiantRow({
           className="absolute inset-0 z-20 outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--fg-paper)]"
         />
       )}
-      <div className="flex items-baseline gap-4 sm:gap-8">
-        <RowNumber n={index} />
-        <div className="min-w-0 flex-1">{inner}</div>
-      </div>
+      <RowNumber n={index} />
+      {inner}
     </li>
   );
 }
 
 function RowNumber({ n }: { n: number }) {
   return (
-    <span className="hidden w-10 shrink-0 pt-2 font-mono text-xs tracking-widest text-[var(--fg-ink-soft)] sm:block">
+    <span className="fg-row-number font-mono text-[10px] tracking-[0.14em] text-[var(--fg-ink-soft)]">
       {String(n).padStart(2, "0")}
     </span>
   );

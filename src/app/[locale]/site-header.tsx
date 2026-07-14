@@ -17,9 +17,9 @@ const REDNOTE_URL = "https://www.xiaohongshu.com/user/profile/6401506e0000000029
 const EMAIL = "yezhenjie@zenmux.ai";
 const WECHAT_IMG = "https://cdn.marmot-cloud.com/storage/zenmux/2026/01/23/fNSKOaq/wechat.png";
 
-/** Shared trigger styling — a bordered round hit-area that inks on hover. */
+/** Shared trigger styling — every action fills one square of the masthead. */
 const TRIGGER_CLASS =
-  "inline-flex size-8 items-center justify-center rounded-full border border-[var(--fg-ink)]/25 bg-white/40 text-[var(--fg-ink)] backdrop-blur transition-colors hover:border-[var(--fg-ink)] focus-visible:border-[var(--fg-ink)] focus-visible:outline-none";
+  "inline-flex size-full min-h-11 items-center justify-center bg-transparent text-[var(--fg-ink)] transition-colors duration-200 hover:bg-white/55 focus-visible:z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--fg-ink)]";
 
 function BrandIcon({ src, alt }: { src: string; alt: string }) {
   return (
@@ -82,7 +82,7 @@ function PopoverIcon({
 }) {
   const id = useId();
   return (
-    <div className="group/icon relative">
+    <div className="group/icon relative size-full">
       {href ? (
         <a
           href={href}
@@ -135,24 +135,33 @@ export function SiteHeader({ qrSvg }: { qrSvg: string }) {
   };
 
   return (
-    <header className="relative z-20 flex items-center justify-between gap-4 px-6 pt-6 sm:px-10">
-      {/* Identity — the avatar is the wordmark's specimen. */}
-      <div className="flex min-w-0 items-center gap-3">
-        <Image
-          src="/thinkthinking/selfie.jpg"
-          alt="thinkthinking"
-          width={80}
-          height={80}
-          priority
-          className="size-10 shrink-0 rounded-full border border-[var(--fg-ink)]/25 object-cover"
-        />
-        <span className="truncate font-(family-name:--font-archivo-black) text-sm tracking-tight">
-          thinkthinking<span className="text-[var(--fg-ink-soft)]">.ai</span>
-        </span>
+    <header className="fg-site-header-grid relative z-20 grid w-full border-y border-[var(--fg-line-strong)]">
+      {/* Identity — avatar, name and field note each occupy exact cells. */}
+      <div className="contents">
+        <div className="fg-header-avatar-cell flex items-center justify-center border-r border-[var(--fg-line-strong)]">
+          <Image
+            src="/thinkthinking/selfie.jpg"
+            alt="thinkthinking"
+            width={80}
+            height={80}
+            priority
+            className="size-10 shrink-0 rounded-full border border-[var(--fg-ink)]/25 object-cover"
+          />
+        </div>
+        <div className="fg-header-name-cell flex min-w-0 items-center border-r border-[var(--fg-line-strong)] px-4 sm:px-5">
+          <span className="truncate font-(family-name:--font-archivo-black) text-sm tracking-tight">
+            thinkthinking<span className="text-[var(--fg-ink-soft)]">.ai</span>
+          </span>
+        </div>
+        <div className="fg-header-meta-cell hidden items-center border-r border-[var(--fg-line-strong)] px-5 lg:flex">
+          <span aria-hidden className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--fg-ink-soft)]">
+            Personal index · Singapore
+          </span>
+        </div>
       </div>
 
-      {/* Contact row + language switch. */}
-      <div className="flex items-center gap-2">
+      {/* Contact row + language switch — exactly one square per action. */}
+      <div className="fg-header-actions contents">
         <a
           href={TWITTER_URL}
           target="_blank"
@@ -217,7 +226,7 @@ export function SiteHeader({ qrSvg }: { qrSvg: string }) {
           locale={otherLocale}
           aria-label={t("langSwitchLabel")}
           title={t("langSwitchLabel")}
-          className="inline-flex h-8 items-center justify-center rounded-full border border-[var(--fg-ink)]/25 bg-white/40 px-3.5 text-[11px] font-medium uppercase tracking-[0.15em] text-[var(--fg-ink)] backdrop-blur transition-colors hover:border-[var(--fg-ink)] hover:bg-[var(--fg-ink)] hover:text-[var(--fg-paper)]"
+          className="inline-flex size-full min-h-11 items-center justify-center px-1 text-[10px] font-medium uppercase tracking-[0.12em] text-[var(--fg-ink)] transition-colors duration-200 hover:bg-[var(--fg-ink)] hover:text-[var(--fg-paper)] focus-visible:z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--fg-ink)] sm:text-[11px] sm:tracking-[0.15em]"
         >
           {t("langSwitch")}
         </Link>
