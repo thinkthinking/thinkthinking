@@ -5,44 +5,30 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   Geist_Mono,
   Jost,
-  Fraunces,
-  Archivo_Black,
-  Noto_Serif_SC,
+  Oswald,
+  Noto_Sans_SC,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
-// Field-guide type system (mirrors the ZenMux Arena editorial voice):
-//  · Jost — geometric sans; small-caps metadata and body copy.
-//  · Fraunces italic — the specimen captions and margin notes.
-//  · Noto Serif SC — CJK companion for Fraunces so Chinese notes stay serif.
-//  · Archivo Black — the giant outlined display type.
-//  · Geist Mono — fact lines and fine print.
 const jost = Jost({
   variable: "--font-jost",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["400", "500", "600"],
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const oswald = Oswald({
+  variable: "--font-oswald",
   subsets: ["latin"],
-  style: ["italic"],
-  weight: ["400", "500"],
+  weight: ["500", "600", "700"],
 });
 
-const notoSerifSC = Noto_Serif_SC({
-  variable: "--font-noto-serif",
+const notoSansSC = Noto_Sans_SC({
+  variable: "--font-noto-sans-sc",
   subsets: ["latin"],
-  weight: ["400", "500"],
-});
-
-const archivoBlack = Archivo_Black({
-  variable: "--font-archivo-black",
-  subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -107,7 +93,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale === "zh" ? "zh-CN" : "en"}
-      className={`${jost.variable} ${fraunces.variable} ${notoSerifSC.variable} ${archivoBlack.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${jost.variable} ${oswald.variable} ${notoSansSC.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>

@@ -1,137 +1,159 @@
-// thinkthinking.ai — the personal homepage of thinkthinking, spoken in the
-// same editorial "field guide" voice as ZenMux Arena: warm cream paper, a
-// specimen ring around a giant outlined masthead (with the plumage easter
-// egg — click a mark and it flies into the title), index sections in huge
-// stroked display type that fill with their accent ink on hover, serif-italic
-// margin notes and small mono fact lines.
-//
-// Structure: masthead (avatar + contact popovers + language switch) →
-// specimen-plate hero (client; easter egg + toolbox strip) → the index
-// (Research / Writing / Work) in giant rows → Open Source grid →
-// minimal colophon. Fully static per locale.
-
 import Image from "next/image";
 import QRCode from "qrcode";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteHeader } from "./site-header";
-import { SpecimenPlate } from "./specimen-plate";
 
-/* ── The index data (structure here, copy in messages/<locale>.json) ─────── */
-
-interface RowDef {
+interface EntryDef {
   id: string;
-  /** Giant outlined display name (not translated — proper nouns). */
   display: string;
-  /** Translation key under work/research/products. */
   tKey: string;
-  hasBody?: boolean;
-  hasMeta?: boolean;
-  /** Company wordmark under public/company-logo (Work rows). */
-  logo?: { src: string; alt: string; href?: string };
   href: string | null;
-  accent: string;
+  color: string;
+  ink?: "light" | "dark";
+  logo?: { src: string; alt: string; href?: string };
 }
 
-const RESEARCH: RowDef[] = [
+const RESEARCH: EntryDef[] = [
   {
     id: "who-are-you",
-    display: "Who Are You?",
+    display: "WHO ARE YOU?",
     tKey: "whoAreYou",
     href: "https://arena.zenmux.ai/who-are-you",
-    accent: "var(--fg-green)",
+    color: "var(--rare-white)",
   },
   {
     id: "token-economics",
-    display: "Token Economics",
+    display: "TOKEN ECONOMICS",
     tKey: "tokenEconomics",
     href: "https://arena.zenmux.ai/token-economics",
-    accent: "var(--fg-ochre)",
+    color: "var(--rare-lilac)",
   },
   {
     id: "agent-harness",
-    display: "Agent Harness",
+    display: "AGENT HARNESS",
     tKey: "agentHarness",
     href: "https://mp.weixin.qq.com/s/pbCg1KOXK63U9QY28yXpsw",
-    accent: "var(--fg-red)",
+    color: "var(--rare-cream)",
   },
   {
     id: "token-deals",
-    display: "Token Deals",
+    display: "TOKEN DEALS",
     tKey: "tokenDeals",
     href: "https://arena.zenmux.ai/token-deals",
-    accent: "var(--fg-blue)",
+    color: "var(--rare-acid)",
   },
 ];
 
-const WORK: RowDef[] = [
+const WORK: EntryDef[] = [
   {
     id: "zenmux",
-    display: "ZenMux",
+    display: "ZENMUX",
     tKey: "zenmux",
-    hasBody: true,
-    hasMeta: true,
-    logo: { src: "/company-logo/zenmux.png", alt: "ZenMux", href: "https://zenmux.ai" },
     href: "https://zenmux.ai",
-    accent: "var(--fg-green)",
+    color: "var(--rare-mint)",
+    logo: { src: "/company-logo/zenmux.png", alt: "ZenMux", href: "https://zenmux.ai" },
   },
   {
     id: "tbox",
-    display: "Tbox",
+    display: "TBOX",
     tKey: "tbox",
-    hasBody: true,
-    hasMeta: true,
-    logo: { src: "/company-logo/antgroup.png", alt: "Ant Group", href: "https://www.antgroup.com" },
     href: "https://b.tbox.cn/inc-about",
-    accent: "var(--fg-blue)",
+    color: "var(--rare-sky)",
+    logo: {
+      src: "/company-logo/antgroup.png",
+      alt: "Ant Group",
+      href: "https://www.antgroup.com",
+    },
   },
   {
     id: "agentos",
-    display: "AgentOS",
+    display: "AGENTOS",
     tKey: "agentos",
-    hasBody: true,
-    hasMeta: true,
-    logo: { src: "/company-logo/agentos.png", alt: "AgentOS" },
     href: "https://mp.weixin.qq.com/s/pbCg1KOXK63U9QY28yXpsw",
-    accent: "var(--fg-ochre)",
+    color: "var(--rare-lilac)",
+    logo: { src: "/company-logo/agentos.png", alt: "AgentOS" },
   },
   {
     id: "baidu",
-    display: "PaddlePaddle",
+    display: "PADDLEPADDLE",
     tKey: "baidu",
-    hasBody: true,
-    hasMeta: true,
-    logo: { src: "/company-logo/baidu.png", alt: "Baidu", href: "https://www.baidu.com" },
     href: "https://www.paddlepaddle.org.cn",
-    accent: "var(--fg-blue)",
+    color: "var(--rare-cream)",
+    logo: {
+      src: "/company-logo/baidu.png",
+      alt: "Baidu",
+      href: "https://www.baidu.com",
+    },
   },
   {
     id: "catl",
     display: "CATL",
     tKey: "catl",
-    hasBody: true,
-    hasMeta: true,
-    logo: { src: "/company-logo/catl.svg", alt: "CATL", href: "https://www.catl.com" },
     href: null,
-    accent: "var(--fg-red)",
+    color: "var(--rare-coral)",
+    logo: { src: "/company-logo/catl.svg", alt: "CATL", href: "https://www.catl.com" },
   },
 ];
 
 const REPOS = [
-  { name: "ZenMux / zenmux-arena", tKey: "zenmuxArena", href: "https://github.com/ZenMux/zenmux-arena" },
-  { name: "thinkthinking / skills", tKey: "skills", href: "https://github.com/thinkthinking/skills" },
-  { name: "thinkthinking / cli", tKey: "cli", href: "https://github.com/thinkthinking/cli" },
-  { name: "vibe-working-templates", tKey: "vibeTemplates", href: "https://github.com/thinkthinking" },
-  { name: "PaddlePaddle / PaddleDetection", tKey: "paddleDetection", href: "https://github.com/PaddlePaddle/PaddleDetection" },
-  { name: "PaddlePaddle / Paddle3D", tKey: "paddle3d", href: "https://github.com/PaddlePaddle/Paddle3D" },
+  {
+    name: "ZenMux / zenmux-arena",
+    tKey: "zenmuxArena",
+    href: "https://github.com/ZenMux/zenmux-arena",
+    color: "var(--rare-mint)",
+  },
+  {
+    name: "thinkthinking / skills",
+    tKey: "skills",
+    href: "https://github.com/thinkthinking/skills",
+    color: "var(--rare-lilac)",
+  },
+  {
+    name: "thinkthinking / cli",
+    tKey: "cli",
+    href: "https://github.com/thinkthinking/cli",
+    color: "var(--rare-acid)",
+  },
+  {
+    name: "vibe-working-templates",
+    tKey: "vibeTemplates",
+    href: "https://github.com/thinkthinking",
+    color: "var(--rare-white)",
+  },
+  {
+    name: "PaddlePaddle / PaddleDetection",
+    tKey: "paddleDetection",
+    href: "https://github.com/PaddlePaddle/PaddleDetection",
+    color: "var(--rare-sky)",
+  },
+  {
+    name: "PaddlePaddle / Paddle3D",
+    tKey: "paddle3d",
+    href: "https://github.com/PaddlePaddle/Paddle3D",
+    color: "var(--rare-cream)",
+  },
 ];
 
 const ARTICLES = [
-  { date: "2026.06", tKey: "deepseek", href: "https://mp.weixin.qq.com/s/0DpC-Q2S6KNs4hVOY9HtXQ" },
-  { date: "2026.06", tKey: "whoAreYou", href: "https://mp.weixin.qq.com/s/sIB3f3_OeeUgMPlQ55-99Q" },
-  { date: "2023.12", tKey: "agentos", href: "https://mp.weixin.qq.com/s/pbCg1KOXK63U9QY28yXpsw" },
+  {
+    date: "2026.06",
+    tKey: "deepseek",
+    href: "https://mp.weixin.qq.com/s/0DpC-Q2S6KNs4hVOY9HtXQ",
+    color: "var(--rare-lilac)",
+  },
+  {
+    date: "2026.06",
+    tKey: "whoAreYou",
+    href: "https://mp.weixin.qq.com/s/sIB3f3_OeeUgMPlQ55-99Q",
+    color: "var(--rare-white)",
+  },
+  {
+    date: "2023.12",
+    tKey: "agentos",
+    href: "https://mp.weixin.qq.com/s/pbCg1KOXK63U9QY28yXpsw",
+    color: "var(--rare-acid)",
+  },
 ];
-
-/* ── JSON-LD (Person) ──────────────────────────────────────────────────── */
 
 const PERSON_LD = {
   "@context": "https://schema.org",
@@ -151,18 +173,16 @@ const PERSON_LD = {
   ],
 };
 
-/* 小红书 profile — rendered to a QR so it scans straight from the page. */
-const XIAOHONGSHU_URL = "https://www.xiaohongshu.com/user/profile/6401506e0000000029017abc";
+const XIAOHONGSHU_URL =
+  "https://www.xiaohongshu.com/user/profile/6401506e0000000029017abc";
 
 function xiaohongshuQrSvg(): Promise<string> {
   return QRCode.toString(XIAOHONGSHU_URL, {
     type: "svg",
     margin: 0,
-    color: { dark: "#211d16", light: "#ffffff00" },
+    color: { dark: "#090909", light: "#ffffff00" },
   });
 }
-
-/* ── Page ──────────────────────────────────────────────────────────────── */
 
 export default async function Home({
   params,
@@ -172,9 +192,10 @@ export default async function Home({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [qrSvg, tSections, tWork, tResearch, tRepos, tArticles, tFooter] =
+  const [qrSvg, tHero, tSections, tWork, tResearch, tRepos, tArticles, tFooter] =
     await Promise.all([
       xiaohongshuQrSvg(),
+      getTranslations("hero"),
       getTranslations("sections"),
       getTranslations("work"),
       getTranslations("research"),
@@ -184,304 +205,221 @@ export default async function Home({
     ]);
 
   return (
-    <main className="relative flex-1 overflow-hidden">
-      {/* Paper grain + a faint warm vignette from the top. */}
-      <div aria-hidden className="fg-grain pointer-events-none absolute inset-0" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 [background:radial-gradient(90%_60%_at_50%_0%,rgba(176,125,43,0.07),transparent_70%)]"
-      />
-
+    <main className="rare-page">
+      <div aria-hidden className="rare-grain" />
+      <a className="rare-skip-link" href="#hero-title">
+        {locale === "zh" ? "跳到主要内容" : "Skip to content"}
+      </a>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_LD) }}
       />
 
-      {/* ── Masthead: avatar + contacts + language switch ────────────────── */}
-      <SiteHeader qrSvg={qrSvg} />
+      <div className="rare-shell">
+        <SiteHeader qrSvg={qrSvg} />
 
-      {/* ── Hero: the specimen plate (client — the masthead is the egg) ──── */}
-      <section className="relative z-10 w-full">
-        <div className="fg-editorial-frame">
-          <SpecimenPlate />
-        </div>
-      </section>
+        <section className="rare-hero" aria-labelledby="hero-title">
+          <div className="rare-hero-wordmark">
+            <h1 id="hero-title">THINKTHINKING</h1>
+          </div>
+          <p className="rare-hero-role">{tHero("kicker")}</p>
 
-      {/* ── I. Research ──────────────────────────────────────────────────── */}
-      <section className="relative z-10 w-full">
-        <IndexHeading no="I" title={tSections("research.title")} note={tSections("research.note")} />
-        <ol className="fg-editorial-frame border-b-0">
-          {RESEARCH.map((row, i) => (
-            <GiantRow
-              key={row.id}
-              row={row}
-              index={i + 1}
-              note={tResearch(`${row.tKey}.note`)}
-              fact={tResearch(`${row.tKey}.fact`)}
-              status={row.href ? undefined : tResearch(`${row.tKey}.status`)}
+          <div className="rare-research-heading">
+            <SectionHeading
+              index="00"
+              id="research-title"
+              title={tSections("research.title")}
+              note={tSections("research.note")}
             />
-          ))}
-        </ol>
+          </div>
 
-        {/* ── II. Writing ──────────────────────────────────────────────── */}
-        <IndexHeading
-          no="II"
-          title={tSections("writing.title")}
-          note={tSections("writing.note")}
-          className="mt-24"
-        />
-        <ol className="fg-editorial-frame border-b-0">
-          {ARTICLES.map((a) => (
-            <li key={a.tKey} className="fg-compact-row group">
-              <a
-                href={a.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="fg-compact-row-link outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--fg-ink)]"
+          <ol className="rare-stack" aria-label={tSections("research.title")}>
+            {RESEARCH.map((item, index) => (
+              <li
+                key={item.id}
+                className="rare-stack-card"
+                style={
+                  {
+                    "--card-color": item.color,
+                    "--card-index": index,
+                  } as React.CSSProperties
+                }
               >
-                <span className="fg-compact-index font-mono text-[10px] tracking-[0.08em] text-[var(--fg-ink-soft)]">
-                  {a.date}
-                </span>
-                <span className="fg-compact-main min-w-0">
-                  <span className="block text-[clamp(1rem,1.8vw,1.25rem)] font-medium leading-snug text-[var(--fg-ink)] transition-transform duration-300 group-hover:translate-x-1">
-                    {tArticles(`${a.tKey}.title`)}
+                <a href={item.href ?? undefined} target="_blank" rel="noopener noreferrer">
+                  <span className="rare-card-title">{item.display}</span>
+                  <span className="rare-card-copy">
+                    <span>{tResearch(`${item.tKey}.note`)}</span>
+                    <span className="rare-card-fact">{tResearch(`${item.tKey}.fact`)}</span>
                   </span>
-                </span>
-                <span className="fg-compact-aside">
-                  <span className="fg-note block text-[13px] leading-snug text-[var(--fg-ink-soft)]">
-                    {tArticles(`${a.tKey}.venue`)}
-                  </span>
-                  <ArrowUpRight className="size-3.5 shrink-0 text-[var(--fg-ink-soft)] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--fg-ink)]" />
-                </span>
-              </a>
-            </li>
-          ))}
-        </ol>
+                  <span className="rare-card-number">{String(index + 1).padStart(3, "0")}</span>
+                  <ArrowUpRight />
+                </a>
+              </li>
+            ))}
+          </ol>
+        </section>
 
-        {/* ── III. Work ────────────────────────────────────────────────── */}
-        <IndexHeading
-          no="III"
-          title={tSections("work.title")}
-          note={tSections("work.note")}
-          className="mt-24"
-        />
-        <ol className="fg-editorial-frame border-b-0">
-          {WORK.map((row, i) => (
-            <GiantRow
-              key={row.id}
-              row={row}
-              index={RESEARCH.length + i + 1}
-              note={tWork(`${row.tKey}.note`)}
-              meta={row.hasMeta ? tWork(`${row.tKey}.meta`) : undefined}
-              body={row.hasBody ? tWork(`${row.tKey}.body`) : undefined}
-              fact={tWork(`${row.tKey}.fact`)}
-            />
-          ))}
-        </ol>
-
-        {/* ── IV. Open Source ──────────────────────────────────────────── */}
-        <IndexHeading
-          no="IV"
-          title={tSections("openSource.title")}
-          note={tSections("openSource.note")}
-          className="mt-24"
-        />
-        <ul className="fg-editorial-frame border-b-0">
-          {REPOS.map((repo, i) => (
-            <li key={repo.name} className="fg-compact-row group">
-              <a
-                href={repo.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="fg-compact-row-link outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--fg-ink)]"
+        <section className="rare-section rare-writing" aria-labelledby="writing-title">
+          <SectionHeading
+            index="01"
+            id="writing-title"
+            title={tSections("writing.title")}
+            note={tSections("writing.note")}
+          />
+          <ol className="rare-writing-list">
+            {ARTICLES.map((article, index) => (
+              <li
+                key={article.tKey}
+                className="rare-writing-card"
+                style={
+                  {
+                    "--card-color": article.color,
+                    "--card-index": index,
+                  } as React.CSSProperties
+                }
               >
-                <span className="fg-compact-index font-mono text-[10px] tracking-[0.08em] text-[var(--fg-ink-soft)]">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="fg-compact-main min-w-0">
-                  <span className="block font-mono text-[13px] tracking-tight text-[var(--fg-ink)] underline-offset-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:underline">
-                    {repo.name}
+                <a href={article.href} target="_blank" rel="noopener noreferrer">
+                  <span className="rare-writing-date">{article.date}</span>
+                  <h3>{tArticles(`${article.tKey}.title`)}</h3>
+                  <span className="rare-writing-venue">
+                    {tArticles(`${article.tKey}.venue`)}
                   </span>
-                </span>
-                <span className="fg-compact-aside">
-                  <span className="fg-note min-w-0 text-[13px] leading-snug text-[var(--fg-ink-soft)]">
-                    {tRepos(repo.tKey)}
-                  </span>
-                  <ArrowUpRight className="size-3.5 shrink-0 text-[var(--fg-ink-soft)] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--fg-ink)]" />
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
+                  <ArrowUpRight />
+                </a>
+              </li>
+            ))}
+          </ol>
+        </section>
 
-      {/* ── Colophon — one quiet line. ───────────────────────────────────── */}
-      <footer className="relative z-10 mt-24 w-full pb-10">
-        <div className="fg-editorial-frame fg-footer-grid grid gap-4 border-t px-4 py-6 sm:gap-0 sm:px-0 sm:py-0">
-          <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--fg-ink-soft)] sm:flex sm:items-center sm:justify-center">
-            © {new Date().getFullYear()}
-          </p>
-          <p className="hidden border-l border-[var(--fg-line-strong)] text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--fg-ink-soft)] sm:flex sm:items-center sm:px-5">
-            thinkthinking
-          </p>
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--fg-ink-soft)] sm:py-6 sm:pr-5">
-            {tFooter("forAgents")}{" "}
-            <a
-              href="/llm.txt"
-              className="underline decoration-dotted underline-offset-4 transition-colors hover:text-[var(--fg-ink)]"
-            >
-              thinkthinking.ai/llm.txt
-            </a>
-          </p>
-        </div>
-      </footer>
+        <section className="rare-section rare-work" aria-labelledby="work-title">
+          <SectionHeading
+            index="02"
+            id="work-title"
+            title={tSections("work.title")}
+            note={tSections("work.note")}
+          />
+          <ol className="rare-work-list">
+            {WORK.map((item, index) => (
+              <li
+                key={item.id}
+                className="rare-work-card"
+                style={
+                  {
+                    "--card-color": item.color,
+                    "--card-index": index,
+                  } as React.CSSProperties
+                }
+              >
+                {item.href ? (
+                  <a
+                    className="rare-work-link"
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.display}
+                  />
+                ) : null}
+                <span className="rare-work-number">{String(index + 5).padStart(3, "0")}</span>
+                <div className="rare-work-heading">
+                  <h3>{item.display}</h3>
+                  <p>{tWork(`${item.tKey}.note`)}</p>
+                </div>
+                <div className="rare-work-story">
+                  <p className="rare-work-meta">{tWork(`${item.tKey}.meta`)}</p>
+                  <p>{tWork(`${item.tKey}.body`)}</p>
+                  <p className="rare-work-fact">{tWork(`${item.tKey}.fact`)}</p>
+                </div>
+                {item.logo ? (
+                  <Image
+                    src={item.logo.src}
+                    alt={item.logo.alt}
+                    width={220}
+                    height={52}
+                    className="rare-work-logo"
+                  />
+                ) : null}
+                {item.href ? <ArrowUpRight /> : null}
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="rare-section rare-source" aria-labelledby="source-title">
+          <SectionHeading
+            index="03"
+            id="source-title"
+            title={tSections("openSource.title")}
+            note={tSections("openSource.note")}
+          />
+          <ul className="rare-source-list">
+            {REPOS.map((repo, index) => (
+              <li
+                key={repo.name}
+                className="rare-source-card"
+                style={
+                  {
+                    "--card-color": repo.color,
+                    "--card-index": index,
+                  } as React.CSSProperties
+                }
+              >
+                <a href={repo.href} target="_blank" rel="noopener noreferrer">
+                  <span className="rare-source-number">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="rare-source-copy">
+                    <h3>{repo.name}</h3>
+                    <p>{tRepos(repo.tKey)}</p>
+                  </span>
+                  <ArrowUpRight />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <footer className="rare-footer">
+          <div className="rare-footer-wordmark">THINKTHINKING</div>
+          <div className="rare-footer-meta">
+            <span>© {new Date().getFullYear()} · SINGAPORE</span>
+            <a href="mailto:yezhenjie@zenmux.ai">KNOCK@THINKTHINKING.AI</a>
+            <span>
+              {tFooter("forAgents")} <a href="/llm.txt">thinkthinking.ai/llm.txt</a>
+            </span>
+          </div>
+        </footer>
+      </div>
     </main>
   );
 }
 
-/* ── Index heading — small roman numeral + rule ───────────────────────────── */
-
-function IndexHeading({
-  no,
+function SectionHeading({
+  index,
+  id,
   title,
   note,
-  className,
 }: {
-  no: string;
+  index: string;
+  id: string;
   title: string;
   note: string;
-  className?: string;
 }) {
   return (
-    <div className={`fg-section-heading ${className ?? ""}`}>
-      <span className="fg-section-no fg-note text-sm text-[var(--fg-ink-soft)]">{no}.</span>
-      <h2 className="fg-section-title text-sm font-medium uppercase tracking-[0.3em] text-[var(--fg-ink)]">
-        {title}
-      </h2>
-      <p className="fg-section-note fg-note text-sm text-[var(--fg-ink-soft)]">{note}</p>
+    <div className="rare-section-heading">
+      <span>{index}</span>
+      <h2 id={id}>{title}</h2>
+      <p>{note}</p>
     </div>
   );
 }
 
-/* ── Giant outlined row ───────────────────────────────────────────────────── */
-
-function GiantRow({
-  row,
-  index,
-  note,
-  meta,
-  body,
-  fact,
-  status,
-}: {
-  row: RowDef;
-  index: number;
-  note: string;
-  meta?: string;
-  body?: string;
-  fact: string | null;
-  status?: string;
-}) {
-  const logoImg = row.logo && (
-    <Image
-      src={row.logo.src}
-      alt={row.logo.alt}
-      width={200}
-      height={48}
-      className="h-5 w-auto opacity-80 transition-opacity group-hover:opacity-100"
-    />
-  );
-
-  const inner = (
-    <div className="contents">
-      <div className="fg-row-main">
-        <span className="fg-outline block font-(family-name:--font-archivo-black) text-[clamp(1.65rem,8vw,2.1rem)] uppercase leading-[0.92] tracking-[-0.045em] sm:text-[clamp(2.1rem,6vw,4.75rem)]">
-          {row.display}
-        </span>
-        {body && (
-          <p className="mt-6 max-w-[44rem] text-[14px] leading-[1.75] text-[var(--fg-ink-soft)]">
-            {body}
-          </p>
-        )}
-      </div>
-      <div className="fg-row-aside">
-        <span className="flex flex-col gap-2">
-          {row.logo &&
-            (row.logo.href ? (
-              <a
-                href={row.logo.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={row.logo.alt}
-                className="relative z-30 mb-2 inline-block self-start rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--fg-paper)]"
-              >
-                {logoImg}
-              </a>
-            ) : (
-              <span className="mb-2 block self-start">{logoImg}</span>
-            ))}
-          <span className="fg-note text-[15px] leading-[1.4] text-[var(--fg-ink)]">
-            {note}
-          </span>
-          {meta && (
-            <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--fg-ink-soft)]">
-              {meta}
-            </span>
-          )}
-          {fact && (
-            <span className="font-mono text-[11px] tracking-tight text-[var(--fg-ink)]/70">
-              {fact}
-            </span>
-          )}
-          {status && (
-            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-[var(--fg-ink-soft)]">
-              {status}
-            </span>
-          )}
-        </span>
-      </div>
-    </div>
-  );
-
-  return (
-    <li
-      className="fg-index-row group relative grid"
-      style={{ "--fg-row-accent": row.accent } as React.CSSProperties}
-    >
-      {row.href && (
-        <a
-          href={row.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={row.display}
-          className="absolute inset-0 z-20 outline-none focus-visible:ring-2 focus-visible:ring-[var(--fg-ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--fg-paper)]"
-        />
-      )}
-      <RowNumber n={index} />
-      {inner}
-    </li>
-  );
-}
-
-function RowNumber({ n }: { n: number }) {
-  return (
-    <span className="fg-row-number font-mono text-[10px] tracking-[0.14em] text-[var(--fg-ink-soft)]">
-      {String(n).padStart(2, "0")}
-    </span>
-  );
-}
-
-/* ── Marks ────────────────────────────────────────────────────────────────── */
-
-function ArrowUpRight({ className }: { className?: string }) {
+function ArrowUpRight() {
   return (
     <svg
+      className="rare-arrow"
       viewBox="0 0 24 24"
       aria-hidden
-      className={className}
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
