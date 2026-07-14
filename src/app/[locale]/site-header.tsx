@@ -80,18 +80,122 @@ function SocialPopover({
   );
 }
 
+function SocialIconNav({
+  qrSvg,
+  copied,
+  onCopyEmail,
+  languageSwitch,
+  className = "",
+}: {
+  qrSvg: string;
+  copied: boolean;
+  onCopyEmail: () => void;
+  languageSwitch?: React.ReactNode;
+  className?: string;
+}) {
+  const t = useTranslations("header");
+
+  return (
+    <nav className={`rare-utility-nav ${className}`} aria-label="Social links">
+      <a
+        className="rare-social-link"
+        href={TWITTER_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t("twitter")}
+        title={t("twitter")}
+      >
+        <XMark />
+      </a>
+      <a
+        className="rare-social-link"
+        href={GITHUB_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t("github")}
+        title={t("github")}
+      >
+        <GithubMark />
+      </a>
+      <SocialPopover
+        label={t("rednote")}
+        href={REDNOTE_URL}
+        icon={<Image src="/media-logo/rednote.svg" alt="" width={18} height={18} />}
+      >
+        <span className="rare-qr" dangerouslySetInnerHTML={{ __html: qrSvg }} />
+      </SocialPopover>
+      <SocialPopover
+        label={t("wechat")}
+        href={WECHAT_IMG}
+        icon={<Image src="/media-logo/wechat.svg" alt="" width={18} height={18} />}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={WECHAT_IMG}
+          alt="WeChat QR"
+          width="160"
+          height="160"
+          loading="lazy"
+        />
+      </SocialPopover>
+      <button
+        type="button"
+        onClick={onCopyEmail}
+        className="rare-social-link"
+        aria-label={copied ? t("copied") : t("email")}
+        title={copied ? t("copied") : t("copyHint")}
+      >
+        <MailMark />
+      </button>
+      {languageSwitch}
+    </nav>
+  );
+}
+
+export function FooterSocialLinks({ qrSvg }: { qrSvg: string }) {
+  const t = useTranslations("header");
+  const locale = useLocale();
+  const pathname = usePathname();
+  const otherLocale = locale === "zh" ? "en" : "zh";
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    await navigator.clipboard?.writeText(EMAIL);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <div className="rare-footer-social-links">
+      <SocialIconNav
+        qrSvg={qrSvg}
+        copied={copied}
+        onCopyEmail={copyEmail}
+        className="rare-footer-social-icons"
+        languageSwitch={
+          <Link
+            className="rare-lang-link"
+            href={pathname}
+            locale={otherLocale}
+            aria-label={t("langSwitchLabel")}
+          >
+            {t("langSwitch")}
+          </Link>
+        }
+      />
+      <span className="rare-sr-only" aria-live="polite">
+        {copied ? t("copied") : ""}
+      </span>
+    </div>
+  );
+}
+
 export function SiteHeader({ qrSvg }: { qrSvg: string }) {
   const t = useTranslations("header");
   const locale = useLocale();
   const pathname = usePathname();
   const otherLocale = locale === "zh" ? "en" : "zh";
   const [copied, setCopied] = useState(false);
-  const [rarity, setRarity] = useState(2);
-
-  const updateRarity = (next: number) => {
-    setRarity(next);
-    document.documentElement.dataset.rarity = String(next);
-  };
 
   const copyEmail = async () => {
     await navigator.clipboard?.writeText(EMAIL);
@@ -101,108 +205,37 @@ export function SiteHeader({ qrSvg }: { qrSvg: string }) {
 
   return (
     <header className="rare-header">
-      <div className="rare-header-identity">
+      <div className="rare-header-intro">
         <Image
           src="/thinkthinking/selfie.jpg"
           alt="thinkthinking"
-          width={96}
-          height={96}
+          width={72}
+          height={72}
           priority
           className="rare-header-avatar"
         />
-        <div className="rare-header-name">
-          <strong>
-            thinkthinking<span>.ai</span>
-          </strong>
-        </div>
+        <span className="rare-header-motto">Ideas Worth Spreading</span>
       </div>
 
       <div className="rare-header-tools">
-        <nav className="rare-utility-nav" aria-label="Social links">
-          <a
-            className="rare-social-link"
-            href={TWITTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t("twitter")}
-            title={t("twitter")}
-          >
-            <XMark />
-          </a>
-          <a
-            className="rare-social-link"
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t("github")}
-            title={t("github")}
-          >
-            <GithubMark />
-          </a>
-          <SocialPopover
-            label={t("rednote")}
-            href={REDNOTE_URL}
-            icon={
-              <Image src="/media-logo/rednote.svg" alt="" width={18} height={18} />
-            }
-          >
-            <span className="rare-qr" dangerouslySetInnerHTML={{ __html: qrSvg }} />
-          </SocialPopover>
-          <SocialPopover
-            label={t("wechat")}
-            href={WECHAT_IMG}
-            icon={
-              <Image src="/media-logo/wechat.svg" alt="" width={18} height={18} />
-            }
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={WECHAT_IMG}
-              alt="WeChat QR"
-              width="160"
-              height="160"
-              loading="lazy"
-            />
-          </SocialPopover>
-          <button
-            type="button"
-            onClick={copyEmail}
-            className="rare-social-link"
-            aria-label={copied ? t("copied") : t("email")}
-            title={copied ? t("copied") : t("copyHint")}
-          >
-            <MailMark />
-          </button>
-          <Link
-            className="rare-lang-link"
-            href={pathname}
-            locale={otherLocale}
-            aria-label={t("langSwitchLabel")}
-          >
-            {t("langSwitch")}
-          </Link>
-        </nav>
-
-        <div className="rare-header-personalize">
-          <button type="button" onClick={copyEmail} className="rare-email-button">
-            {copied ? t("copied") : "KNOCK@THINKTHINKING.AI"}
-          </button>
-          <label className="rare-rarity-control">
-            <span>RARITY {String(rarity).padStart(2, "0")}</span>
-            <input
-              type="range"
-              min="1"
-              max="4"
-              value={rarity}
-              onChange={(event) => updateRarity(Number(event.target.value))}
-              aria-label="Visual rarity level"
-              className="rare-slider"
-            />
-          </label>
-          <span className="rare-sr-only" aria-live="polite">
-            {copied ? t("copied") : ""}
-          </span>
-        </div>
+        <SocialIconNav
+          qrSvg={qrSvg}
+          copied={copied}
+          onCopyEmail={copyEmail}
+          languageSwitch={
+            <Link
+              className="rare-lang-link"
+              href={pathname}
+              locale={otherLocale}
+              aria-label={t("langSwitchLabel")}
+            >
+              {t("langSwitch")}
+            </Link>
+          }
+        />
+        <span className="rare-sr-only" aria-live="polite">
+          {copied ? t("copied") : ""}
+        </span>
       </div>
     </header>
   );

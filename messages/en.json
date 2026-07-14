@@ -18,7 +18,8 @@
     "kicker": "AI Product Builder · ZenMux.ai Co-Founder",
     "landed": "{name} landed in the masthead",
     "titleAria": "Send a random specimen flying into the masthead",
-    "markAria": "Send {name} flying into the masthead"
+    "markAria": "Send {name} flying into the masthead",
+    "colorAria": "Change the site's colors"
   },
   "sections": {
     "work": { "title": "Work", "note": "from perception algorithms to LLM infrastructure" },
@@ -100,6 +101,7 @@
     }
   },
   "footer": {
-    "forAgents": "for AI agents:"
+    "follow": "Follow along",
+    "forAgents": "For AI agents"
   }
 }

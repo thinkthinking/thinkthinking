@@ -1,7 +1,8 @@
 import Image from "next/image";
 import QRCode from "qrcode";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { SiteHeader } from "./site-header";
+import { ColorWordmark } from "./color-wordmark";
+import { FooterSocialLinks, SiteHeader } from "./site-header";
 
 interface EntryDef {
   id: string;
@@ -225,7 +226,7 @@ export default async function Home({
 
         <section className="rare-hero" aria-labelledby="hero-title">
           <div className="rare-hero-wordmark">
-            <h1 id="hero-title">THINKTHINKING</h1>
+            <ColorWordmark />
           </div>
 
           <div className="rare-research-heading">
@@ -389,13 +390,19 @@ export default async function Home({
         </section>
 
         <footer className="rare-footer">
-          <div className="rare-footer-wordmark">THINKTHINKING</div>
-          <div className="rare-footer-meta">
-            <span>© {new Date().getFullYear()} · SINGAPORE</span>
-            <a href="mailto:yezhenjie@zenmux.ai">KNOCK@THINKTHINKING.AI</a>
-            <span>
-              {tFooter("forAgents")} <a href="/llm.txt">thinkthinking.ai/llm.txt</a>
-            </span>
+          <div className="rare-footer-top">
+            <div className="rare-footer-wordmark">THINKTHINKING</div>
+            <div className="rare-footer-follow">
+              <span className="rare-footer-label">{tFooter("follow")}</span>
+              <FooterSocialLinks qrSvg={qrSvg} />
+            </div>
+          </div>
+
+          <div className="rare-footer-base">
+            <span>© {new Date().getFullYear()} THINKTHINKING</span>
+            <a href="/llm.txt">
+              {tFooter("forAgents")} · thinkthinking.ai/llm.txt
+            </a>
           </div>
         </footer>
       </div>

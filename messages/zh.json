@@ -18,7 +18,8 @@
     "kicker": "AI Product Builder · ZenMux.ai Co-Founder",
     "landed": "{name} 落进了标题里",
     "titleAria": "让一个随机的模型飞进标题",
-    "markAria": "让 {name} 飞进标题"
+    "markAria": "让 {name} 飞进标题",
+    "colorAria": "切换网站色彩"
   },
   "sections": {
     "work": { "title": "Work", "note": "从感知算法到大模型基础设施" },
@@ -100,6 +101,7 @@
     }
   },
   "footer": {
-    "forAgents": "for AI agents:"
+    "follow": "关注我的动态",
+    "forAgents": "给 AI Agents"
   }
 }
