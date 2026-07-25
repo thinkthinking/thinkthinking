@@ -19,6 +19,10 @@
   --rare-pink: #ff23bf;
   --rare-border: rgb(9 9 9 / 10%);
   --rare-shadow: 0 2px 2px rgb(18 18 18 / 10%), 0 10px 24px rgb(18 18 18 / 13%);
+  /* One horizontal inset shared by every card interior AND by the section
+     headings, so section titles and card titles sit on a single left edge.
+     The section index number lives in the gutter this inset creates. */
+  --rare-card-inset: 28px;
 }
 
 * {
@@ -407,7 +411,7 @@ input {
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 22px 28px;
+  padding: 22px var(--rare-card-inset);
   border-radius: inherit;
   outline: none;
 }
@@ -481,11 +485,14 @@ input {
   padding-top: clamp(120px, 18vw, 220px);
 }
 
+/* Column 1 is the card inset plus the card's 1px border, so the h2 lands on
+   exactly the same left edge as the card titles below it, and the index number
+   hangs in the gutter that inset creates. */
 .rare-section-heading {
   display: grid;
-  grid-template-columns: 52px 1fr 1fr;
+  grid-template-columns: calc(var(--rare-card-inset) + 1px) minmax(0, 1fr) minmax(0, 1fr);
   align-items: end;
-  gap: 18px;
+  column-gap: 0;
   padding-bottom: 14px;
   font-family: var(--font-geist-mono), monospace;
   text-transform: uppercase;
@@ -536,10 +543,14 @@ input {
   font-variant-numeric: tabular-nums;
 }
 
+/* Inset symmetrically so this section's titles start on the same left edge as
+   the card sections, whose type is inset by the card padding. Without it the
+   Writing column ran flush to the shell while every other title sat 28px in. */
 .rare-writing-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(24px, 3.6vw, 42px);
+  padding-inline: var(--rare-card-inset);
 }
 
 .rare-writing-card {
@@ -680,7 +691,7 @@ input {
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 18px 2px 0;
+  padding: 18px 0 0;
 }
 
 .rare-writing-card h3 {
@@ -735,9 +746,9 @@ input {
   display: grid;
   grid-template-columns: minmax(0, 0.88fr) minmax(280px, 1.12fr);
   gap: clamp(28px, 5vw, 64px);
-  min-height: 235px;
+  min-height: 178px;
   margin-top: -7px;
-  padding: 28px 34px;
+  padding: 26px var(--rare-card-inset) 28px;
   border: 1px solid var(--rare-border);
   border-radius: 10px;
   background: var(--card-color);
@@ -765,24 +776,38 @@ input {
   outline: none;
 }
 
+/* The arrow is deliberately excluded here: it is absolutely positioned above,
+   and re-declaring position:relative at equal specificity would win by order,
+   turning it into an in-flow grid item — which added a phantom row (plus the
+   64px row gap) to the bottom of every linked card and pushed its story block
+   out of alignment with the cards that have no arrow. */
 .rare-work-heading,
 .rare-work-story,
 .rare-work-logo,
-.rare-work-number,
-.rare-work-card > .rare-arrow {
+.rare-work-number {
   position: relative;
   z-index: 3;
   pointer-events: none;
 }
 
+.rare-work-card > .rare-arrow {
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Product names sit one clear step below the section masthead (which runs
+   clamp(2.7rem, 6vw, 5.4rem)) so the hierarchy reads section > product. The
+   ceiling is set by the longest name — PADDLEPADDLE, 12 wide glyphs — which
+   has to fit the 0.88fr column without spilling into the story text. */
 .rare-work-heading h3 {
   margin: 0;
   font-family: var(--font-oswald), var(--font-noto-sans-sc), sans-serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-size: clamp(2.05rem, 3.9vw, 3.4rem);
   font-weight: 600;
-  line-height: 0.88;
-  letter-spacing: -0.055em;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
   text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .rare-work-heading p {
@@ -793,9 +818,15 @@ input {
   text-transform: uppercase;
 }
 
+/* Top-aligned so the meta line starts level with the product name in every
+   card. Bottom-aligning made each card's story float to whatever height its
+   own body text produced, so no two cards agreed on a horizontal. The offset
+   pulls the small meta line's cap height up onto the big name's cap height —
+   the two are set at very different sizes, so matching line boxes would still
+   look misaligned to the eye. */
 .rare-work-story {
-  align-self: end;
-  padding-bottom: 2px;
+  align-self: start;
+  margin-top: -13px;
   font-size: 12px;
   line-height: 1.6;
 }
@@ -812,19 +843,45 @@ input {
   text-transform: uppercase;
 }
 
+.rare-work-meta {
+  margin-bottom: 0 !important;
+}
+
 .rare-work-fact {
   margin-bottom: 0 !important;
   color: rgb(9 9 9 / 58%);
 }
 
+/* Role/date on the left, company mark hard right, sharing one baseline row. */
+.rare-work-storyhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  min-height: 20px;
+}
+
+/* One shared box for every company mark. Constraining BOTH axes is what makes
+   the set consistent: sizing on height alone let the wide bare wordmarks (CATL,
+   aspect 4.8) run much longer and heavier than the icon + two-line lockups
+   (Ant Group / Baidu, aspect 3.0). --logo-scale then trims each mark to equal
+   optical weight; object-fit keeps every aspect ratio intact. */
 .rare-work-logo {
-  position: absolute;
-  top: 28px;
-  right: 34px;
-  width: auto;
-  height: 18px;
-  object-fit: contain;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+  width: calc(76px * var(--logo-scale, 1));
+  height: calc(19px * var(--logo-scale, 1));
   opacity: 0.7;
+}
+
+.rare-work-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right center;
 }
 
 .rare-work-number {
@@ -867,7 +924,7 @@ input {
   width: 100%;
   height: 100%;
   min-height: 126px;
-  padding: 22px 26px;
+  padding: 22px var(--rare-card-inset);
   outline: none;
 }
 
@@ -1051,6 +1108,12 @@ html[data-rarity="4"] .rare-footer-wordmark {
 }
 
 @media (max-width: 760px) {
+  :root {
+    /* Tighter gutter on small screens, still shared by cards and headings so
+       the single left edge survives the breakpoint. */
+    --rare-card-inset: 20px;
+  }
+
   .rare-shell {
     width: min(100% - 24px, 620px);
   }
@@ -1105,20 +1168,20 @@ html[data-rarity="4"] .rare-footer-wordmark {
 
   .rare-stack-card a {
     display: block;
-    padding: 20px 18px;
+    padding: 20px var(--rare-card-inset);
   }
 
   .rare-card-title {
     display: block;
     max-width: calc(100% - 35px);
-    font-size: clamp(2.15rem, 11vw, 3.25rem);
+    font-size: clamp(2rem, 10vw, 2.9rem);
   }
 
   .rare-card-copy {
     position: absolute;
     right: 15px;
     bottom: 13px;
-    left: 18px;
+    left: var(--rare-card-inset);
     display: block;
     overflow: hidden;
     padding: 0 24px 0 0;
@@ -1136,14 +1199,21 @@ html[data-rarity="4"] .rare-footer-wordmark {
   }
 
   .rare-section-heading {
-    grid-template-columns: 32px 1fr;
-    gap: 10px;
+    grid-template-columns: calc(var(--rare-card-inset) + 1px) minmax(0, 1fr);
+    column-gap: 0;
+  }
+
+  /* Section masthead stays the largest type on the page at every width — the
+     card titles below scale up on narrow screens (single column), so without
+     this they would overtake the h2 and invert the hierarchy. */
+  .rare-section-heading h2 {
+    font-size: clamp(3.1rem, 13vw, 4.2rem);
   }
 
   .rare-section-heading p {
     grid-column: 2;
     justify-self: start;
-    margin-top: -4px;
+    margin-top: 8px;
     text-align: left;
   }
 
@@ -1166,19 +1236,21 @@ html[data-rarity="4"] .rare-footer-wordmark {
 
   .rare-work-card {
     grid-template-columns: 1fr;
-    gap: 36px;
-    min-height: 320px;
-    padding: 28px 20px 24px;
+    gap: 22px;
+    min-height: 0;
+    padding: 26px var(--rare-card-inset) 24px;
+  }
+
+  /* Single column on mobile: the story sits directly under the heading, so the
+     desktop cap-height nudge would pull it into the note line above. */
+  .rare-work-story {
+    margin-top: 0;
+    font-size: 11px;
   }
 
   .rare-work-logo {
-    top: 18px;
-    right: 18px;
-    height: 14px;
-  }
-
-  .rare-work-story {
-    font-size: 11px;
+    width: calc(66px * var(--logo-scale, 1));
+    height: calc(16px * var(--logo-scale, 1));
   }
 
   .rare-source-list {
@@ -1192,7 +1264,7 @@ html[data-rarity="4"] .rare-footer-wordmark {
   }
 
   .rare-source-card a {
-    padding: 22px 20px;
+    padding: 22px var(--rare-card-inset);
   }
 
   .rare-source-copy {

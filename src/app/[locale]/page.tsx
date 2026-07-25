@@ -11,7 +11,12 @@ interface EntryDef {
   href: string | null;
   color: string;
   ink?: "light" | "dark";
-  logo?: { src: string; alt: string; href?: string };
+  // `scale` optically balances each mark: the logos are a mix of bare wordmarks
+  // (CATL fills its whole box) and icon + two-line lockups (Ant Group, Baidu,
+  // whose glyphs are small at any given box height). Normalising box height
+  // alone makes the wordmarks read far larger, so each mark carries a factor
+  // derived from its ink area — see --logo-scale in globals.css.
+  logo?: { src: string; alt: string; href?: string; scale?: number };
 }
 
 const RESEARCH: EntryDef[] = [
@@ -52,7 +57,12 @@ const WORK: EntryDef[] = [
     tKey: "zenmux",
     href: "https://zenmux.ai",
     color: "var(--rare-mint)",
-    logo: { src: "/company-logo/zenmux.png", alt: "ZenMux", href: "https://zenmux.ai" },
+    logo: {
+      src: "/company-logo/zenmux.png",
+      alt: "ZenMux",
+      href: "https://zenmux.ai",
+      scale: 0.98,
+    },
   },
   {
     id: "tbox",
@@ -64,6 +74,7 @@ const WORK: EntryDef[] = [
       src: "/company-logo/antgroup.png",
       alt: "Ant Group",
       href: "https://www.antgroup.com",
+      scale: 1.06,
     },
   },
   {
@@ -72,7 +83,7 @@ const WORK: EntryDef[] = [
     tKey: "agentos",
     href: "https://mp.weixin.qq.com/s/pbCg1KOXK63U9QY28yXpsw",
     color: "var(--rare-lilac)",
-    logo: { src: "/company-logo/agentos.png", alt: "AgentOS" },
+    logo: { src: "/company-logo/agentos.png", alt: "AgentOS", scale: 1 },
   },
   {
     id: "baidu",
@@ -84,15 +95,21 @@ const WORK: EntryDef[] = [
       src: "/company-logo/baidu.png",
       alt: "Baidu",
       href: "https://www.baidu.com",
+      scale: 1.03,
     },
   },
   {
     id: "catl",
     display: "CATL",
     tKey: "catl",
-    href: null,
+    href: "https://www.catl.com/en/",
     color: "var(--rare-coral)",
-    logo: { src: "/company-logo/catl.svg", alt: "CATL", href: "https://www.catl.com" },
+    logo: {
+      src: "/company-logo/catl.svg",
+      alt: "CATL",
+      href: "https://www.catl.com/en/",
+      scale: 0.88,
+    },
   },
 ];
 
@@ -338,19 +355,25 @@ export default async function Home({
                   <p>{tWork(`${item.tKey}.note`)}</p>
                 </div>
                 <div className="rare-work-story">
-                  <p className="rare-work-meta">{tWork(`${item.tKey}.meta`)}</p>
+                  {/* Role/date and the company mark share the top row of the story
+                      column, so the mark keeps its flush-right edge without
+                      overlapping the body copy below it. */}
+                  <div className="rare-work-storyhead">
+                    <p className="rare-work-meta">{tWork(`${item.tKey}.meta`)}</p>
+                    {item.logo ? (
+                      <span
+                        className="rare-work-logo"
+                        style={
+                          { "--logo-scale": item.logo.scale ?? 1 } as React.CSSProperties
+                        }
+                      >
+                        <Image src={item.logo.src} alt={item.logo.alt} width={220} height={52} />
+                      </span>
+                    ) : null}
+                  </div>
                   <p>{tWork(`${item.tKey}.body`)}</p>
                   <p className="rare-work-fact">{tWork(`${item.tKey}.fact`)}</p>
                 </div>
-                {item.logo ? (
-                  <Image
-                    src={item.logo.src}
-                    alt={item.logo.alt}
-                    width={220}
-                    height={52}
-                    className="rare-work-logo"
-                  />
-                ) : null}
                 {item.href ? <ArrowUpRight /> : null}
               </li>
             ))}
