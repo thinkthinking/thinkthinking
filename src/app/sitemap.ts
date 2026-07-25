@@ -21,5 +21,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: { "zh-CN": "https://thinkthinking.ai/zh", en: "https://thinkthinking.ai" },
       },
     },
+    {
+      url: "https://thinkthinking.ai/vibe-working",
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          "zh-CN": "https://thinkthinking.ai/zh/vibe-working",
+          en: "https://thinkthinking.ai/vibe-working",
+        },
+      },
+    },
+    {
+      url: "https://thinkthinking.ai/zh/vibe-working",
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          "zh-CN": "https://thinkthinking.ai/zh/vibe-working",
+          en: "https://thinkthinking.ai/vibe-working",
+        },
+      },
+    },
   ];
 }

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import QRCode from "qrcode";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { ColorWordmark } from "./color-wordmark";
 import { FooterSocialLinks, SiteHeader } from "./site-header";
 
@@ -216,10 +217,20 @@ export default async function Home({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [qrSvg, tSections, tWork, tResearch, tRepos, tArticles, tFooter] =
+  const [
+    qrSvg,
+    tSections,
+    tMethodology,
+    tWork,
+    tResearch,
+    tRepos,
+    tArticles,
+    tFooter,
+  ] =
     await Promise.all([
       xiaohongshuQrSvg(),
       getTranslations("sections"),
+      getTranslations("methodology"),
       getTranslations("work"),
       getTranslations("research"),
       getTranslations("repos"),
@@ -281,9 +292,49 @@ export default async function Home({
           </ol>
         </section>
 
-        <section className="rare-section rare-writing" aria-labelledby="writing-title">
+        <section
+          className="rare-section rare-methodology"
+          aria-labelledby="methodology-title"
+        >
           <SectionHeading
             index="01"
+            id="methodology-title"
+            title={tSections("methodology.title")}
+            note={tSections("methodology.note")}
+          />
+          <Link className="rare-methodology-card" href="/vibe-working">
+            <span className="rare-methodology-number">M / 001</span>
+            <span className="rare-methodology-copy">
+              <span className="rare-methodology-note">
+                {tMethodology("vibeWorking.note")}
+              </span>
+              <strong>{tMethodology("vibeWorking.title")}</strong>
+              <span className="rare-methodology-body">
+                {tMethodology("vibeWorking.body")}
+              </span>
+              <span className="rare-methodology-fact">
+                {tMethodology("vibeWorking.fact")}
+              </span>
+            </span>
+            <span className="rare-methodology-visual" aria-hidden>
+              {(tMethodology.raw("vibeWorking.steps") as string[]).map(
+                (step, index) => (
+                  <i key={step} style={{ "--step-index": index } as React.CSSProperties}>
+                    {step}
+                  </i>
+                ),
+              )}
+            </span>
+            <span className="rare-methodology-cta">
+              {tMethodology("vibeWorking.cta")}
+              <ArrowUpRight />
+            </span>
+          </Link>
+        </section>
+
+        <section className="rare-section rare-writing" aria-labelledby="writing-title">
+          <SectionHeading
+            index="02"
             id="writing-title"
             title={tSections("writing.title")}
             note={tSections("writing.note")}
@@ -323,7 +374,7 @@ export default async function Home({
 
         <section className="rare-section rare-work" aria-labelledby="work-title">
           <SectionHeading
-            index="02"
+            index="03"
             id="work-title"
             title={tSections("work.title")}
             note={tSections("work.note")}
@@ -382,7 +433,7 @@ export default async function Home({
 
         <section className="rare-section rare-source" aria-labelledby="source-title">
           <SectionHeading
-            index="03"
+            index="04"
             id="source-title"
             title={tSections("openSource.title")}
             note={tSections("openSource.note")}

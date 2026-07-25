@@ -45,3 +45,6 @@ __pycache__/
 *.py[cod]
 
 .context/references/zenmux-arena
+.tmp-vibe-ppt.rpnVfx
+.context/references/ZenMuxAI组织转型实践与思考-叶震杰-0626-v3.pptx
+.context/references/vibe-working.md

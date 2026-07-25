@@ -24,8 +24,19 @@
   "sections": {
     "work": { "title": "Work", "note": "从感知算法到大模型基础设施" },
     "research": { "title": "Research", "note": "用真实数据回答真实问题" },
+    "methodology": { "title": "Methodology", "note": "把实践沉淀成可复用的方法" },
     "openSource": { "title": "Open Source", "note": "代码即名片" },
     "writing": { "title": "Writing", "note": "公开写作与研究笔记" }
+  },
+  "methodology": {
+    "vibeWorking": {
+      "note": "AI 原生产品工作方法",
+      "title": "VIBE WORKING",
+      "body": "当 Coding Agent 让开发速度率先跃迁，产品、设计与上下文交接就会成为新的瓶颈。Vibe Working 讨论的，是如何重组整条产品管道。",
+      "fact": "7 个互动章节 · OPC 与多人协作 · Context 即接口",
+      "cta": "进入互动方法论",
+      "steps": ["IDEA", "PRODUCT", "DESIGN", "BUILD", "TEST", "GROWTH"]
+    }
   },
   "work": {
     "zenmux": {
@@ -98,6 +109,148 @@
     "agentos": {
       "title": "Agent产品设计(1)｜开篇：不破不立！用第一性原理解构这一切吧！",
       "venue": "个人公众号"
+    }
+  },
+  "vibeWorking": {
+    "meta": {
+      "title": "Vibe Working — AI 原生产品工作方法 | thinkthinking",
+      "description": "从 Vibe Coding 到 Vibe Working：用互动叙事理解产品管道瓶颈、OPC、多人协作、Context 接口与超级个体组织。"
+    },
+    "nav": {
+      "back": "返回首页",
+      "methodology": "Methodology / 01",
+      "title": "Vibe Working",
+      "chapter": "章节",
+      "previous": "上一章",
+      "next": "继续",
+      "finish": "重新开始",
+      "replay": "重播动画",
+      "keyboardHint": "← → 或空格键推进",
+      "sourceNote": "基于 ZenMux 2023—2026 的产品与组织实践"
+    },
+    "chapters": {
+      "origin": {
+        "eyebrow": "01 / 从 Coding 向外扩张",
+        "title": "Vibe Coding，只是这场变化最先被看见的部分。",
+        "body": [
+          "Vibe Working 是把 Vibe Coding 的外延继续推开：不只让 AI 写代码，也让它进入用户研究、产品设计、UX、测试、运营和传播。",
+          "真正的问题不是“哪个岗位该用 AI”，而是整条产品管道能不能一起提速。任何一个没有充分使用 AI 的节点，都会成为下一段瓶颈。"
+        ],
+        "takeaway": "不要只优化一项任务，要重画完整的工作流。"
+      },
+      "bottleneck": {
+        "eyebrow": "02 / 瓶颈会移动",
+        "title": "开发变快之后，产品经理反而更容易成为瓶颈。",
+        "body": [
+          "今天的 Agent 最擅长写代码，所以开发环节最先获得数量级的效率提升。但需求判断、原型、验收与推广并不会自动变快。",
+          "当研发等待需求、等待上下文、等待确认，局部的编码速度就无法转化为产品速度。系统的吞吐量，永远由最慢的节点决定。"
+        ],
+        "takeaway": "AI 带来的第一个组织问题，不是人太多，而是上下游速度不再匹配。"
+      },
+      "opc": {
+        "eyebrow": "03 / 模式一：OPC",
+        "title": "把产品、设计、开发与验证，装进同一个反馈回路。",
+        "body": [
+          "OPC 的价值不是证明一个人可以替代所有专家，而是减少需求在角色之间反复翻译。一个 owner 端到端负责目标、实现与验证，改动可以直接以自然语言交给 Coding Agent。",
+          "这适合探索期、小产品和高不确定任务。一个人掌握完整上下文，决策与反馈之间几乎没有传递损耗。"
+        ],
+        "takeaway": "OPC 不是一个人干所有活，而是一个人守住完整结果。"
+      },
+      "collaboration": {
+        "eyebrow": "04 / 模式二：多人协作",
+        "title": "分工可以保留，但 Context 必须成为团队的共同接口。",
+        "body": [
+          "在更复杂的产品里，产品、设计、研发、测试依然需要各自的专业判断。关键变化，是产品经理要把意图组织成 Agent 与人都能继续工作的 Context。",
+          "Markdown、原型、PRD、Skill 和可执行规则，不只是文档；它们是组织记忆，也是跨角色协作的 API。"
+        ],
+        "takeaway": "高质量协作不是多开会，而是让正确上下文随任务一起流动。"
+      },
+      "artifacts": {
+        "eyebrow": "05 / 产物链",
+        "title": "从一句 Idea 到可执行需求，每个产物都应继续被 AI 消费。",
+        "body": [
+          "一条可复用的产品链路是：Idea → 初版 PRD 与原型 → Figma 设计稿 → 终版 PRD → 研发。AI Agent 参与每一步，也继承上一步的决策。",
+          "最终 PRD 的价值不在于字数，而在于能否把 why、约束、边界、验收方式与关键取舍无损传给下游。"
+        ],
+        "takeaway": "最好的交付物不是“写完了”，而是下一个人和 Agent 可以立即开工。"
+      },
+      "organization": {
+        "eyebrow": "06 / 从岗位到责任",
+        "title": "组织会从一棵岗位树，变成多主多从的责任网络。",
+        "body": [
+          "ZenMux 的实践经历了三步：ChatGPT 辅助的传统金字塔、围绕 SPEC 的产品研发协作、再到 Context + Claude Code + MCP + Skills 驱动的超级个体网络。",
+          "“超级个体”不是孤军奋战。每个人在不同任务中既可能是 owner，也可能是协作者；架构师对长期结果主责，其他成员围绕目标动态组合。"
+        ],
+        "takeaway": "岗位定义你会什么，责任定义这次结果由谁守住。"
+      },
+      "judgment": {
+        "eyebrow": "07 / 人仍然是源头",
+        "title": "AI 放大执行，但洞察、Taste 与责任仍然来自人。",
+        "body": [
+          "产品经理不应沉迷 Vibe Coding。至少 70% 的时间仍然应该用来理解用户、感受需求，并在真实反馈里形成 Taste。专业问题也仍应由最懂它的人主导。",
+          "把自己的产品信息持续 Context 化，Coach 每个协作者理解产品，并精雕细琢每个细节。AI 是乘数，人对问题的理解才是被乘数。"
+        ],
+        "takeaway": "Vibe Working 的终点，不是更少的人，而是更完整的人。"
+      }
+    },
+    "scenes": {
+      "origin": {
+        "kicker": "EXTEND THE SURFACE",
+        "headline": "从一个开发动作，扩展为整条产品管道",
+        "from": "局部提速",
+        "to": "系统提速",
+        "stages": ["研究", "产品", "设计", "开发", "测试", "增长"]
+      },
+      "bottleneck": {
+        "kicker": "THE SLOWEST STAGE WINS",
+        "headline": "编码速度 ×10，不代表产品速度 ×10",
+        "stages": ["产品", "设计", "开发", "测试", "增长"],
+        "multipliers": ["×1.2", "×1.8", "×10", "×2.1", "×1.4"],
+        "bottleneck": "NEW BOTTLENECK",
+        "note": "局部效率越高，未被改造的节点越显眼。"
+      },
+      "opc": {
+        "kicker": "MODE 01 / OPC",
+        "headline": "一个 owner，守住从想法到上线的完整回路",
+        "owner": "结果负责人",
+        "roles": ["研究", "产品", "设计", "开发", "测试", "发布"],
+        "loop": "同一个大脑内完成需求分析与传递",
+        "note": "减少角色之间的翻译损耗，而不是否定专业。"
+      },
+      "collaboration": {
+        "kicker": "MODE 02 / COLLABORATION",
+        "headline": "让上下文穿过组织，而不是只停在某个人脑中",
+        "context": "团队共同接口",
+        "people": ["PM", "DESIGN", "ENGINEERING", "QA"],
+        "artifacts": ["WHY", "PRD", "PROTOTYPE", "SKILL"],
+        "note": "人负责专业判断，Context 负责让判断可传递。"
+      },
+      "artifacts": {
+        "kicker": "ARTIFACT PIPELINE",
+        "headline": "每一步都留下下一步可以继续消费的产物",
+        "steps": ["IDEA", "初版 PRD + 原型", "FIGMA", "终版 PRD", "BUILD"],
+        "handoff": "READY TO EXECUTE",
+        "note": "交付的衡量标准：下游能否少问一句、早开工一天。"
+      },
+      "organization": {
+        "kicker": "ORGANIZATION AS A NETWORK",
+        "headline": "从按岗位排队，转向围绕结果动态组队",
+        "before": "传统金字塔",
+        "after": "多主多从",
+        "tree": ["LEAD", "PM / R&D", "EXECUTION"],
+        "network": ["OWNER", "ARCH", "BUILDER", "COACH", "GROWTH"],
+        "note": "同一个人会在不同任务中切换 owner 与 collaborator。"
+      },
+      "judgment": {
+        "kicker": "THE HUMAN MULTIPLIER",
+        "headline": "被 AI 放大的，首先是你对问题的理解",
+        "human": "定义方向",
+        "ai": "放大执行",
+        "humanItems": ["用户洞察", "Taste", "取舍", "责任"],
+        "aiItems": ["生成", "推演", "执行", "复用"],
+        "formula": "HUMAN JUDGMENT × AI LEVERAGE = VIBE WORKING",
+        "note": "AI 不是魔法；人机协作才是效率提升的根本变量。"
+      }
     }
   },
   "footer": {

@@ -24,8 +24,19 @@
   "sections": {
     "work": { "title": "Work", "note": "from perception algorithms to LLM infrastructure" },
     "research": { "title": "Research", "note": "real questions, answered with real data" },
+    "methodology": { "title": "Methodology", "note": "turning practice into reusable systems" },
     "openSource": { "title": "Open Source", "note": "code as a calling card" },
     "writing": { "title": "Writing", "note": "public writing & research notes" }
+  },
+  "methodology": {
+    "vibeWorking": {
+      "note": "an AI-native product operating method",
+      "title": "VIBE WORKING",
+      "body": "Once coding agents accelerate development first, product thinking, design, and context handoffs become the new bottlenecks. Vibe Working redesigns the whole product pipeline.",
+      "fact": "7 interactive chapters · OPC and team mode · Context as interface",
+      "cta": "Enter the interactive essay",
+      "steps": ["IDEA", "PRODUCT", "DESIGN", "BUILD", "TEST", "GROWTH"]
+    }
   },
   "work": {
     "zenmux": {
@@ -98,6 +109,148 @@
     "agentos": {
       "title": "Agent Product Design (1) | Prologue: Break It to Build It — Deconstructing Everything with First Principles",
       "venue": "WeChat blog · in Chinese"
+    }
+  },
+  "vibeWorking": {
+    "meta": {
+      "title": "Vibe Working — an AI-native product operating method | thinkthinking",
+      "description": "An interactive field guide to pipeline bottlenecks, OPC, collaborative context, executable artifacts, and super-individual organizations."
+    },
+    "nav": {
+      "back": "Back home",
+      "methodology": "Methodology / 01",
+      "title": "Vibe Working",
+      "chapter": "Chapter",
+      "previous": "Previous chapter",
+      "next": "Continue",
+      "finish": "Start again",
+      "replay": "Replay animation",
+      "keyboardHint": "Use ← → or Space to advance",
+      "sourceNote": "Drawn from ZenMux product and organization practice, 2023—2026"
+    },
+    "chapters": {
+      "origin": {
+        "eyebrow": "01 / Beyond coding",
+        "title": "Vibe Coding is only the first visible edge of a larger change.",
+        "body": [
+          "Vibe Working extends the idea beyond code. AI enters user research, product design, UX, testing, operations, and distribution—not just implementation.",
+          "The real question is not which role should use AI. It is whether the entire product pipeline can accelerate together. Any stage left unchanged becomes the next bottleneck."
+        ],
+        "takeaway": "Do not optimize one task. Redraw the whole workflow."
+      },
+      "bottleneck": {
+        "eyebrow": "02 / Bottlenecks move",
+        "title": "When development gets faster, product management can become the constraint.",
+        "body": [
+          "Today's agents are best at writing code, so implementation gets the earliest order-of-magnitude gain. Product judgment, prototyping, acceptance, and distribution do not speed up automatically.",
+          "When engineers wait for requirements, context, or confirmation, local coding speed never becomes product speed. System throughput is always set by its slowest stage."
+        ],
+        "takeaway": "AI's first organizational problem is not excess headcount. It is mismatched speed upstream and downstream."
+      },
+      "opc": {
+        "eyebrow": "03 / Mode one: OPC",
+        "title": "Put product, design, building, and validation inside one feedback loop.",
+        "body": [
+          "OPC is not proof that one person can replace every specialist. It reduces repeated translation between roles. One owner holds the goal, implementation, and validation end to end, sending changes directly to a coding agent in natural language.",
+          "This works for exploration, small products, and high-uncertainty tasks. Complete context stays with one person, so decisions lose almost nothing in transit."
+        ],
+        "takeaway": "OPC does not mean doing every job. It means guarding the complete outcome."
+      },
+      "collaboration": {
+        "eyebrow": "04 / Mode two: collaboration",
+        "title": "Specialization can remain, but Context must become the shared interface.",
+        "body": [
+          "Complex products still need distinct judgment from product, design, engineering, and QA. The shift is that product managers organize intent into Context that both people and agents can continue from.",
+          "Markdown, prototypes, PRDs, Skills, and executable rules are not merely documents. They are organizational memory and APIs for cross-functional work."
+        ],
+        "takeaway": "Good collaboration is not more meetings. It is the right context traveling with the task."
+      },
+      "artifacts": {
+        "eyebrow": "05 / The artifact chain",
+        "title": "From one-line Idea to executable requirement, every artifact should feed the next agent.",
+        "body": [
+          "A reusable product chain is: Idea → draft PRD and prototype → Figma design → final PRD → engineering. AI agents participate at every step and inherit the decisions from the previous one.",
+          "A final PRD is valuable not because it is long, but because it carries the why, constraints, boundaries, acceptance criteria, and trade-offs downstream without loss."
+        ],
+        "takeaway": "The best deliverable is not 'finished.' It lets the next person and agent start immediately."
+      },
+      "organization": {
+        "eyebrow": "06 / From role to responsibility",
+        "title": "Organizations shift from a job tree to a multi-owner responsibility network.",
+        "body": [
+          "ZenMux moved through three stages: a traditional pyramid assisted by ChatGPT, SPEC-centered product and engineering, then a super-individual network powered by Context + Claude Code + MCP + Skills.",
+          "A super individual is not a lone wolf. On different tasks, each person may be owner or collaborator; architects hold long-term responsibility while others assemble dynamically around an outcome."
+        ],
+        "takeaway": "A job says what you can do. Responsibility says who guards this outcome."
+      },
+      "judgment": {
+        "eyebrow": "07 / Humans remain the source",
+        "title": "AI amplifies execution; insight, taste, and responsibility still come from people.",
+        "body": [
+          "Product managers should not disappear into Vibe Coding. At least 70% of their energy still belongs with users—feeling demand and forming taste from real feedback. Specialists should still lead the problems they understand best.",
+          "Continuously turn product knowledge into Context, coach every collaborator to understand the product, and refine each detail. AI is the multiplier; human understanding is what gets multiplied."
+        ],
+        "takeaway": "The destination of Vibe Working is not fewer people. It is more complete people."
+      }
+    },
+    "scenes": {
+      "origin": {
+        "kicker": "EXTEND THE SURFACE",
+        "headline": "Expand one coding action into the whole product pipeline",
+        "from": "Local speed",
+        "to": "System speed",
+        "stages": ["Research", "Product", "Design", "Build", "Test", "Growth"]
+      },
+      "bottleneck": {
+        "kicker": "THE SLOWEST STAGE WINS",
+        "headline": "Coding speed ×10 does not make product speed ×10",
+        "stages": ["Product", "Design", "Build", "Test", "Growth"],
+        "multipliers": ["×1.2", "×1.8", "×10", "×2.1", "×1.4"],
+        "bottleneck": "NEW BOTTLENECK",
+        "note": "The faster one stage gets, the more visible every untouched stage becomes."
+      },
+      "opc": {
+        "kicker": "MODE 01 / OPC",
+        "headline": "One owner guards the complete loop from idea to release",
+        "owner": "Outcome owner",
+        "roles": ["Research", "Product", "Design", "Build", "Test", "Launch"],
+        "loop": "Analysis and handoff happen inside one mind",
+        "note": "Reduce translation loss between roles without denying expertise."
+      },
+      "collaboration": {
+        "kicker": "MODE 02 / COLLABORATION",
+        "headline": "Move context through the organization—not only through one person's head",
+        "context": "Shared interface",
+        "people": ["PM", "DESIGN", "ENGINEERING", "QA"],
+        "artifacts": ["WHY", "PRD", "PROTOTYPE", "SKILL"],
+        "note": "People supply professional judgment; Context makes that judgment portable."
+      },
+      "artifacts": {
+        "kicker": "ARTIFACT PIPELINE",
+        "headline": "Every step leaves an artifact the next step can consume",
+        "steps": ["IDEA", "DRAFT PRD + PROTOTYPE", "FIGMA", "FINAL PRD", "BUILD"],
+        "handoff": "READY TO EXECUTE",
+        "note": "Measure a handoff by whether downstream asks one less question and starts one day sooner."
+      },
+      "organization": {
+        "kicker": "ORGANIZATION AS A NETWORK",
+        "headline": "Move from waiting by role to assembling around outcomes",
+        "before": "Traditional pyramid",
+        "after": "Multi-owner network",
+        "tree": ["LEAD", "PM / R&D", "EXECUTION"],
+        "network": ["OWNER", "ARCH", "BUILDER", "COACH", "GROWTH"],
+        "note": "The same person switches between owner and collaborator across tasks."
+      },
+      "judgment": {
+        "kicker": "THE HUMAN MULTIPLIER",
+        "headline": "AI first amplifies how well you understand the problem",
+        "human": "Sets direction",
+        "ai": "Scales execution",
+        "humanItems": ["User insight", "Taste", "Trade-offs", "Responsibility"],
+        "aiItems": ["Generate", "Simulate", "Execute", "Reuse"],
+        "formula": "HUMAN JUDGMENT × AI LEVERAGE = VIBE WORKING",
+        "note": "AI is not magic; human–AI collaboration is the real productivity variable."
+      }
     }
   },
   "footer": {
