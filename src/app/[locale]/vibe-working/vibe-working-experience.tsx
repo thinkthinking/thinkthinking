@@ -14,7 +14,7 @@ export interface Chapter {
 
 export interface ExperienceLabels {
   back: string;
-  methodology: string;
+  talks: string;
   title: string;
   chapter: string;
   previous: string;
@@ -151,7 +151,7 @@ export function VibeWorkingExperience({
           <span>{labels.back}</span>
         </Link>
         <div className="vw-topbar-title">
-          <span>{labels.methodology}</span>
+          <span>{labels.talks}</span>
           <strong>{labels.title}</strong>
         </div>
         <div className="vw-topbar-progress" aria-label={`${labels.chapter} ${active + 1}`}>

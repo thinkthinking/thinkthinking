@@ -67,7 +67,7 @@ export default async function VibeWorkingPage({
 
   const labels: ExperienceLabels = {
     back: t("nav.back"),
-    methodology: t("nav.methodology"),
+    talks: t("nav.talks"),
     title: t("nav.title"),
     chapter: t("nav.chapter"),
     previous: t("nav.previous"),

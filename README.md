@@ -8,12 +8,14 @@ Daily heavy user of Claude Code, Codex, and Cursor — running ~1.5B tokens/mont
 
 This repo powers [thinkthinking.ai](https://thinkthinking.ai), my personal site.
 
-## Methodology
+## Talks
 
 - **[Vibe Working](https://thinkthinking.ai/vibe-working)** — an interactive
   field guide to extending Vibe Coding across the full product pipeline:
   moving bottlenecks, OPC and collaborative operating modes, Context as the
   shared interface, executable artifacts, and super-individual organizations.
+- **[如果 Token 会说话 / If Tokens Could Talk](https://arena.zenmux.app/talk)** —
+  online interactive talk materials on ZenMux Arena.
 
 ---
 

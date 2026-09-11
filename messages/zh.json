@@ -24,18 +24,25 @@
   "sections": {
     "work": { "title": "Work", "note": "从感知算法到大模型基础设施" },
     "research": { "title": "Research", "note": "用真实数据回答真实问题" },
-    "methodology": { "title": "Methodology", "note": "把实践沉淀成可复用的方法" },
+    "talks": { "title": "Talks", "note": "演讲与在线互动材料" },
     "openSource": { "title": "Open Source", "note": "代码即名片" },
     "writing": { "title": "Writing", "note": "公开写作与研究笔记" }
   },
-  "methodology": {
+  "talks": {
     "vibeWorking": {
       "note": "AI 原生产品工作方法",
       "title": "VIBE WORKING",
       "body": "当 Coding Agent 让开发速度率先跃迁，产品、设计与上下文交接就会成为新的瓶颈。Vibe Working 讨论的，是如何重组整条产品管道。",
       "fact": "7 个互动章节 · OPC 与多人协作 · Context 即接口",
-      "cta": "进入互动方法论",
+      "cta": "打开互动材料",
       "steps": ["IDEA", "PRODUCT", "DESIGN", "BUILD", "TEST", "GROWTH"]
+    },
+    "ifTokensCouldTalk": {
+      "note": "在线互动演讲材料",
+      "title": "如果 Token 会说话",
+      "body": "如果 Token 会说话，它们会讲述怎样的故事？打开这份在线互动材料，一起探索。",
+      "fact": "ZenMux Arena · 在线互动",
+      "cta": "打开互动材料"
     }
   },
   "work": {
@@ -118,7 +125,7 @@
     },
     "nav": {
       "back": "返回首页",
-      "methodology": "Methodology / 01",
+      "talks": "Talks / 01",
       "title": "Vibe Working",
       "chapter": "章节",
       "previous": "上一章",

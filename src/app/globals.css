@@ -1313,8 +1313,8 @@ html[data-rarity="4"] .rare-footer-wordmark {
   }
 }
 
-/* Methodology entry — a single editorial feature rather than another card grid. */
-.rare-methodology-card {
+/* Talks and their interactive materials. */
+.rare-talks-card {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
@@ -1328,7 +1328,7 @@ html[data-rarity="4"] .rare-footer-wordmark {
   transition: box-shadow 320ms ease, transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.rare-methodology-card::before {
+.rare-talks-card::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1339,21 +1339,60 @@ html[data-rarity="4"] .rare-footer-wordmark {
   mix-blend-mode: multiply;
 }
 
-.rare-methodology-card:hover,
-.rare-methodology-card:focus-visible {
+.rare-talks-card + .rare-talks-card {
+  margin-top: 24px;
+}
+
+.rare-talks-token-card {
+  background: var(--rare-lilac);
+}
+
+.rare-talks-token-card .rare-talks-copy strong {
+  max-width: 11ch;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  word-break: keep-all;
+}
+
+.rare-talks-token-visual::before {
+  display: none;
+}
+
+.rare-talks-token-bubble {
+  position: relative;
+  padding: 24px 32px;
+  border: 1px solid var(--rare-ink);
+  border-radius: 32px 32px 32px 0;
+  background: var(--rare-paper);
+  box-shadow: 8px 8px 0 rgb(9 9 9 / 14%);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: -0.06em;
+  transform: rotate(-6deg);
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rare-talks-token-card:hover .rare-talks-token-bubble,
+.rare-talks-token-card:focus-visible .rare-talks-token-bubble {
+  transform: rotate(0deg);
+}
+
+.rare-talks-card:hover,
+.rare-talks-card:focus-visible {
   box-shadow: 0 5px 5px rgb(18 18 18 / 8%), 0 28px 52px rgb(18 18 18 / 18%);
   transform: translateY(-9px) rotate(-0.15deg);
 }
 
-.rare-methodology-number,
-.rare-methodology-note,
-.rare-methodology-fact,
-.rare-methodology-cta {
+.rare-talks-number,
+.rare-talks-note,
+.rare-talks-fact,
+.rare-talks-cta {
   font-family: var(--font-geist-mono), monospace;
   text-transform: uppercase;
 }
 
-.rare-methodology-number {
+.rare-talks-number {
   position: absolute;
   top: 17px;
   left: 18px;
@@ -1362,7 +1401,7 @@ html[data-rarity="4"] .rare-footer-wordmark {
   letter-spacing: 0.06em;
 }
 
-.rare-methodology-copy {
+.rare-talks-copy {
   position: relative;
   z-index: 1;
   display: flex;
@@ -1372,14 +1411,14 @@ html[data-rarity="4"] .rare-footer-wordmark {
   padding: 66px var(--rare-card-inset) 34px;
 }
 
-.rare-methodology-note {
+.rare-talks-note {
   margin-bottom: 14px;
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.04em;
 }
 
-.rare-methodology-copy strong {
+.rare-talks-copy strong {
   max-width: 8ch;
   font-family: var(--font-oswald), var(--font-noto-sans-sc), sans-serif;
   font-size: clamp(4rem, 8vw, 6.4rem);
@@ -1388,21 +1427,21 @@ html[data-rarity="4"] .rare-footer-wordmark {
   letter-spacing: -0.065em;
 }
 
-.rare-methodology-body {
+.rare-talks-body {
   max-width: 46ch;
   margin-top: 28px;
   font-size: 12px;
   line-height: 1.65;
 }
 
-.rare-methodology-fact {
+.rare-talks-fact {
   margin-top: 18px;
   font-size: 8px;
   line-height: 1.5;
   color: rgb(9 9 9 / 58%);
 }
 
-.rare-methodology-visual {
+.rare-talks-visual {
   position: relative;
   z-index: 1;
   display: flex;
@@ -1413,7 +1452,7 @@ html[data-rarity="4"] .rare-footer-wordmark {
   border-left: 1px solid rgb(9 9 9 / 16%);
 }
 
-.rare-methodology-visual::before {
+.rare-talks-visual::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -1423,7 +1462,7 @@ html[data-rarity="4"] .rare-footer-wordmark {
   background: var(--rare-ink);
 }
 
-.rare-methodology-visual i {
+.rare-talks-visual i {
   position: absolute;
   z-index: 2;
   top: calc(20% + var(--step-index) * 10%);
@@ -1445,12 +1484,12 @@ html[data-rarity="4"] .rare-footer-wordmark {
   transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.rare-methodology-card:hover .rare-methodology-visual i,
-.rare-methodology-card:focus-visible .rare-methodology-visual i {
+.rare-talks-card:hover .rare-talks-visual i,
+.rare-talks-card:focus-visible .rare-talks-visual i {
   transform: translateY(calc((var(--step-index) - 2.5) * -4px)) rotate(0deg);
 }
 
-.rare-methodology-cta {
+.rare-talks-cta {
   position: absolute;
   right: 20px;
   bottom: 18px;
@@ -1462,14 +1501,14 @@ html[data-rarity="4"] .rare-footer-wordmark {
   font-weight: 600;
 }
 
-.rare-methodology-cta .rare-arrow {
+.rare-talks-cta .rare-arrow {
   width: 16px;
   height: 16px;
   transition: transform 240ms ease;
 }
 
-.rare-methodology-card:hover .rare-methodology-cta .rare-arrow,
-.rare-methodology-card:focus-visible .rare-methodology-cta .rare-arrow {
+.rare-talks-card:hover .rare-talks-cta .rare-arrow,
+.rare-talks-card:focus-visible .rare-talks-cta .rare-arrow {
   transform: translate(3px, -3px);
 }
 
@@ -2618,31 +2657,31 @@ html[data-rarity="4"] .rare-footer-wordmark {
 }
 
 @media (max-width: 760px) {
-  .rare-methodology-card {
+  .rare-talks-card {
     grid-template-columns: 1fr;
     min-height: 590px;
   }
 
-  .rare-methodology-copy {
+  .rare-talks-copy {
     min-height: 330px;
     padding-top: 54px;
   }
 
-  .rare-methodology-copy strong {
+  .rare-talks-copy strong {
     font-size: clamp(3.8rem, 19vw, 5.8rem);
   }
 
-  .rare-methodology-body {
+  .rare-talks-body {
     font-size: 11px;
   }
 
-  .rare-methodology-visual {
+  .rare-talks-visual {
     min-height: 220px;
     border-top: 1px solid rgb(9 9 9 / 16%);
     border-left: 0;
   }
 
-  .rare-methodology-visual i {
+  .rare-talks-visual i {
     top: calc(13% + var(--step-index) * 8%);
     left: calc(5% + var(--step-index) * 14.4%);
     width: 48px;

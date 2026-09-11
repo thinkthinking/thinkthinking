@@ -86,7 +86,14 @@ algorithm engineer at CATL.
    MCP + Skills, multi-master/multi-agent collaboration, how a ~10-person
    AI-native SaaS team ships product.
 
-## Methodology — Vibe Working
+## Talks
+
+### 如果 Token 会说话 / If Tokens Could Talk
+
+- Online interactive talk materials: https://arena.zenmux.app/talk
+- Hosted on ZenMux Arena.
+
+### Vibe Working
 
 - Interactive field guide: https://thinkthinking.ai/vibe-working
   Chinese: https://thinkthinking.ai/zh/vibe-working

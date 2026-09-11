@@ -24,18 +24,25 @@
   "sections": {
     "work": { "title": "Work", "note": "from perception algorithms to LLM infrastructure" },
     "research": { "title": "Research", "note": "real questions, answered with real data" },
-    "methodology": { "title": "Methodology", "note": "turning practice into reusable systems" },
+    "talks": { "title": "Talks", "note": "speaking & interactive materials" },
     "openSource": { "title": "Open Source", "note": "code as a calling card" },
     "writing": { "title": "Writing", "note": "public writing & research notes" }
   },
-  "methodology": {
+  "talks": {
     "vibeWorking": {
       "note": "an AI-native product operating method",
       "title": "VIBE WORKING",
       "body": "Once coding agents accelerate development first, product thinking, design, and context handoffs become the new bottlenecks. Vibe Working redesigns the whole product pipeline.",
       "fact": "7 interactive chapters · OPC and team mode · Context as interface",
-      "cta": "Enter the interactive essay",
+      "cta": "Open interactive materials",
       "steps": ["IDEA", "PRODUCT", "DESIGN", "BUILD", "TEST", "GROWTH"]
+    },
+    "ifTokensCouldTalk": {
+      "note": "interactive talk materials",
+      "title": "If Tokens Could Talk",
+      "body": "If tokens could talk, what stories would they tell? Explore the talk through its online interactive materials.",
+      "fact": "ZenMux Arena · Interactive experience",
+      "cta": "Open interactive materials"
     }
   },
   "work": {
@@ -118,7 +125,7 @@
     },
     "nav": {
       "back": "Back home",
-      "methodology": "Methodology / 01",
+      "talks": "Talks / 01",
       "title": "Vibe Working",
       "chapter": "Chapter",
       "previous": "Previous chapter",

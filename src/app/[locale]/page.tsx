@@ -220,7 +220,7 @@ export default async function Home({
   const [
     qrSvg,
     tSections,
-    tMethodology,
+    tTalks,
     tWork,
     tResearch,
     tRepos,
@@ -230,7 +230,7 @@ export default async function Home({
     await Promise.all([
       xiaohongshuQrSvg(),
       getTranslations("sections"),
-      getTranslations("methodology"),
+      getTranslations("talks"),
       getTranslations("work"),
       getTranslations("research"),
       getTranslations("repos"),
@@ -293,31 +293,31 @@ export default async function Home({
         </section>
 
         <section
-          className="rare-section rare-methodology"
-          aria-labelledby="methodology-title"
+          className="rare-section rare-talks"
+          aria-labelledby="talks-title"
         >
           <SectionHeading
             index="01"
-            id="methodology-title"
-            title={tSections("methodology.title")}
-            note={tSections("methodology.note")}
+            id="talks-title"
+            title={tSections("talks.title")}
+            note={tSections("talks.note")}
           />
-          <Link className="rare-methodology-card" href="/vibe-working">
-            <span className="rare-methodology-number">M / 001</span>
-            <span className="rare-methodology-copy">
-              <span className="rare-methodology-note">
-                {tMethodology("vibeWorking.note")}
+          <Link className="rare-talks-card" href="/vibe-working">
+            <span className="rare-talks-number">T / 001</span>
+            <span className="rare-talks-copy">
+              <span className="rare-talks-note">
+                {tTalks("vibeWorking.note")}
               </span>
-              <strong>{tMethodology("vibeWorking.title")}</strong>
-              <span className="rare-methodology-body">
-                {tMethodology("vibeWorking.body")}
+              <strong>{tTalks("vibeWorking.title")}</strong>
+              <span className="rare-talks-body">
+                {tTalks("vibeWorking.body")}
               </span>
-              <span className="rare-methodology-fact">
-                {tMethodology("vibeWorking.fact")}
+              <span className="rare-talks-fact">
+                {tTalks("vibeWorking.fact")}
               </span>
             </span>
-            <span className="rare-methodology-visual" aria-hidden>
-              {(tMethodology.raw("vibeWorking.steps") as string[]).map(
+            <span className="rare-talks-visual" aria-hidden>
+              {(tTalks.raw("vibeWorking.steps") as string[]).map(
                 (step, index) => (
                   <i key={step} style={{ "--step-index": index } as React.CSSProperties}>
                     {step}
@@ -325,11 +325,38 @@ export default async function Home({
                 ),
               )}
             </span>
-            <span className="rare-methodology-cta">
-              {tMethodology("vibeWorking.cta")}
+            <span className="rare-talks-cta">
+              {tTalks("vibeWorking.cta")}
               <ArrowUpRight />
             </span>
           </Link>
+          <a
+            className="rare-talks-card rare-talks-token-card"
+            href="https://arena.zenmux.app/talk"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="rare-talks-number">T / 002</span>
+            <span className="rare-talks-copy">
+              <span className="rare-talks-note">
+                {tTalks("ifTokensCouldTalk.note")}
+              </span>
+              <strong>{tTalks("ifTokensCouldTalk.title")}</strong>
+              <span className="rare-talks-body">
+                {tTalks("ifTokensCouldTalk.body")}
+              </span>
+              <span className="rare-talks-fact">
+                {tTalks("ifTokensCouldTalk.fact")}
+              </span>
+            </span>
+            <span className="rare-talks-visual rare-talks-token-visual" aria-hidden>
+              <span className="rare-talks-token-bubble">Token.</span>
+            </span>
+            <span className="rare-talks-cta">
+              {tTalks("ifTokensCouldTalk.cta")}
+              <ArrowUpRight />
+            </span>
+          </a>
         </section>
 
         <section className="rare-section rare-writing" aria-labelledby="writing-title">
