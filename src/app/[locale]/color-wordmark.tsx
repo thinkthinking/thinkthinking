@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { RedpacketDialog } from "./redpacket-dialog";
 
 const RARITY_LEVELS = 4;
 const STAR_CURSOR_RADIUS = 34;
@@ -9,6 +10,8 @@ const STAR_CURSOR_RADIUS = 34;
 export function ColorWordmark() {
   const t = useTranslations("hero");
   const [rarity, setRarity] = useState(2);
+  const [showRedpacket, setShowRedpacket] = useState(false);
+  const clicksRemainingRef = useRef<number | null>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
 
   useEffect(
@@ -21,7 +24,16 @@ export function ColorWordmark() {
   const shiftColor = () => {
     const next = (rarity % RARITY_LEVELS) + 1;
     setRarity(next);
-    document.documentElement.dataset.rarity = String(next);
+    document.documentElement.setAttribute("data-rarity", String(next));
+
+    // Choose a fresh threshold in the click handler, keeping SSR deterministic.
+    clicksRemainingRef.current ??= 3 + Math.floor(Math.random() * 5);
+    clicksRemainingRef.current -= 1;
+    if (clicksRemainingRef.current === 0) {
+      clicksRemainingRef.current = null;
+      hideCursor();
+      setShowRedpacket(true);
+    }
   };
 
   const moveCursor = (event: React.PointerEvent<HTMLButtonElement>) => {
@@ -79,6 +91,9 @@ export function ColorWordmark() {
           <circle cx="36" cy="36" r="5" fill="#f2ff3d" />
         </svg>
       </span>
+      {showRedpacket ? (
+        <RedpacketDialog onClose={() => setShowRedpacket(false)} />
+      ) : null}
     </>
   );
 }

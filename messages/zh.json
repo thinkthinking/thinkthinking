@@ -19,7 +19,15 @@
     "landed": "{name} 落进了标题里",
     "titleAria": "让一个随机的模型飞进标题",
     "markAria": "让 {name} 飞进标题",
-    "colorAria": "切换网站色彩"
+    "colorAria": "切换网站色彩",
+    "redpacket": {
+      "title": "发现一个小彩蛋",
+      "close": "关闭彩蛋弹窗",
+      "imageAlt": "红包彩蛋海报，包含可扫描的二维码",
+      "hint": "扫码领取，慢慢来，弹窗不会自动关闭。",
+      "openImage": "打开原图",
+      "error": "图片暂时加载失败，请点击「打开原图」查看。"
+    }
   },
   "sections": {
     "work": { "title": "Work", "note": "从感知算法到大模型基础设施" },

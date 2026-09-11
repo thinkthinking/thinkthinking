@@ -19,7 +19,15 @@
     "landed": "{name} landed in the masthead",
     "titleAria": "Send a random specimen flying into the masthead",
     "markAria": "Send {name} flying into the masthead",
-    "colorAria": "Change the site's colors"
+    "colorAria": "Change the site's colors",
+    "redpacket": {
+      "title": "A little surprise for you",
+      "close": "Close surprise",
+      "imageAlt": "Red packet surprise poster with a scannable QR code",
+      "hint": "Scan to claim. Take your time — this stays open.",
+      "openImage": "Open full image",
+      "error": "The image could not load. Select “Open full image” to view it."
+    }
   },
   "sections": {
     "work": { "title": "Work", "note": "from perception algorithms to LLM infrastructure" },
